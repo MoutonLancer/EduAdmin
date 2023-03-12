@@ -50,19 +50,19 @@ public class StudentInfoService extends ServiceImpl<StudentInfoDao, Student> imp
 
     public Student getByPrimaryKey(String key){
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()
-                .eq(MyUtils.AllParamIsMeaningful(true, key),"student_id", key);
+                .eq(MyUtils.AllParamIsMeaningful(true, key),PrimaryKey, key);
         return this.getOne(wrapper);
     }
 
     public boolean removeByPrimaryKey(String key){
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()
-                .eq(MyUtils.AllParamIsMeaningful(true, key),"student_id", key);
+                .eq(MyUtils.AllParamIsMeaningful(true, key),PrimaryKey, key);
         return studentInfoDao.delete(wrapper)>0;
     }
 
     public boolean update(Student student){
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()
-                .eq(student != null,"student_id", student.getStudentId());
+                .eq(student != null,PrimaryKey, student.getStudentId());
         return studentInfoDao.update(student, wrapper)>0;
     }
 
