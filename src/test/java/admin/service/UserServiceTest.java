@@ -1,9 +1,6 @@
 package admin.service;
 
-import admin.Utils.MyUtils;
-import admin.domain.User;
 import admin.service.functionService.LoginService;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,8 +30,29 @@ public class UserServiceTest {
         System.out.println(loginService.login(null,"null"));
         System.out.println(loginService.login("","null"));
         System.out.println(loginService.login("",null));
+    }
 
+    @Test
+    public void usernameUsabilityTest(){
+        System.out.println(loginService.usernameUsable("root"));
+        System.out.println(loginService.usernameUsable("a"));
+        System.out.println(loginService.usernameUsable(""));
+        System.out.println(loginService.usernameUsable("null"));
+        System.out.println(loginService.usernameUsable(null));
+    }
 
+    @Test
+    public void registerTest(){
+        System.out.println(loginService.register(null,null));
+        System.out.println(loginService.register("null","null"));
+        System.out.println(loginService.register("",""));
+        System.out.println(loginService.register(null,"null"));
+        System.out.println(loginService.register("","null"));
+        System.out.println(loginService.register("",null));
+        System.out.println("---------------------------------------");
+        System.out.println(loginService.register("a","a"));
+        System.out.println(loginService.register("b","b"));
+        System.out.println(loginService.register("c","c"));
 
     }
 

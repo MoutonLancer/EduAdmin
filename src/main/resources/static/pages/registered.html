@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="../css/loginStyle.css" type="text/css" charset="UTF-8">
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios-0.18.0.js"></script>
+</head>
+<body>
+<div id="app">
+    <h2>REGISTER</h2>
+    <div>
+        <span id="placeholder">*</span>
+        <span id="Msg" :style="messageColor" v-show="showMessage">{{r.message}}</span>
+    </div>
+    <div id="input_box" aria-checked="true">
+        <span>Username: </span>
+        <label>
+            <input type="text" placeholder="请输入用户名" name="username" v-model:value="userInfo.username" @blur="usernameUsable()">
+        </label>
+    </div>
+    <div class="input_box">
+        <span>Password: </span>
+        <label>
+            <input type="password" placeholder="请输入密码" name="password" v-model:value="userInfo.password">
+        </label>
+    </div>
+    <button @click="register()">注册</button>
+    <br>
+    <span class="text">已经有账号？</span>
+    <a id="registered" href="../pages/login.html">登录</a>
+</div>
+</body>
+
+<script>
+    const app = new Vue({
+        el:'#app',
+        data:{
+            userInfo:{
+                username: '',
+                password: ''
+            },
+            r:{
+                flag:null,
+                data:null,
+                message:""
+            },
+            showMessage:false,
+            messageColor:''
+        },
+        methods:{
+            register(){
+                axios.post("/userFun/register",this.userInfo).then((res)=>{
+                    this.r.flag = res.data.flag;
+                    this.r.data = res.data.data;
+                    this.r.message = res.data.message;
+                    if (this.r.data){
+                        window.alert(this.r.message);
+                        window.location.href = "../pages/login.html";
+                    }
+                    else {
+                        this.messageColor = "color:red";
+                        this.showMessage=true;
+                    }
+                });
+            },
+
+            usernameUsable(){
+                axios.get("/userFun/usernameUsable/"+this.userInfo.username).then((res)=>{
+                    this.r.flag = res.data.flag;
+                    this.r.data = res.data.data;
+                    this.r.message = res.data.message;
+                    this.showMessage=true;
+                }).finally(() => {
+                    this.messageColor = this.r.data?"color:#99ff99":"color:red";
+                });
+            }
+
+
+        }
+    });
+</script>
+</html>

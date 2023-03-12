@@ -4,9 +4,10 @@ import admin.Utils.MyUtils;
 import admin.domain.User;
 import admin.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class LoginService {
@@ -19,15 +20,18 @@ public class LoginService {
                     .eq("username",username)
                     .eq("password",password));
         return false;
-
     }
 
-    public boolean usernameUsability(String username){
-        s
+    public boolean usernameUsable(String username){
+        if(MyUtils.AllParamIsMeaningful(true,username))
+            return 0 == userService.getByInfo(null,username,null,null,null).getTotal();
+        return false;
     }
+
     public boolean register(String username, String password){
         if (MyUtils.AllParamIsMeaningful(true,username,password))
-
+            if (usernameUsable(username))
+                return userService.save(new User(null,username,password,null,null,new Date()));
         return false;
     }
 }
