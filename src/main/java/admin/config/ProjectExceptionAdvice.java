@@ -1,6 +1,6 @@
 package admin.config;
 
-import admin.controller.protocol.R;
+import admin.domain.protocol.R;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

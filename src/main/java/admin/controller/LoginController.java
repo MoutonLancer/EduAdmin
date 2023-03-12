@@ -1,11 +1,10 @@
 package admin.controller;
 
-import admin.controller.protocol.R;
+import admin.domain.protocol.R;
 import admin.domain.User;
 import admin.service.functionService.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @RestController
 @ResponseBody

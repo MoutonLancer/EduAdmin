@@ -1,4 +1,4 @@
-package admin.controller.protocol;
+package admin.domain.protocol;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
