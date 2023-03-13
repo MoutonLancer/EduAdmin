@@ -53,7 +53,6 @@ public class UserServiceTest {
         System.out.println(loginService.register("a","a"));
         System.out.println(loginService.register("b","b"));
         System.out.println(loginService.register("c","c"));
-
     }
 
 }

@@ -59,8 +59,9 @@ public class TeacherInfoService extends ServiceImpl<TeacherInfoDao, Teacher> imp
     }
 
     public boolean update(Teacher teacher){
+        if (teacher == null) return false;
         QueryWrapper<Teacher> wrapper = new QueryWrapper<Teacher>()
-                .eq(teacher != null,primaryKey, teacher.getTeacherId());
+                .eq(primaryKey, teacher.getTeacherId());
         return teacherInfoDao.update(teacher, wrapper)>0;
     }
 

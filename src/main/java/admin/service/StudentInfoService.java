@@ -61,8 +61,9 @@ public class StudentInfoService extends ServiceImpl<StudentInfoDao, Student> imp
     }
 
     public boolean update(Student student){
+        if (student == null) return false;
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()
-                .eq(student != null,PrimaryKey, student.getStudentId());
+                .eq(PrimaryKey, student.getStudentId());
         return studentInfoDao.update(student, wrapper)>0;
     }
 

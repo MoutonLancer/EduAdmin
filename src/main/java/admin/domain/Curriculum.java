@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @TableName("edu_curriculum")
 public class Curriculum {
+    private Integer id;
     private String courseId;
     private String courseName;
     private String address;
-    private String teacherName;
+    private String teacherId;
     private Integer credits;
 }
