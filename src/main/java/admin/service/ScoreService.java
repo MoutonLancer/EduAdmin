@@ -4,6 +4,7 @@ package admin.service;
 import admin.Utils.MyUtils;
 import admin.dao.ScoreDao;
 import admin.domain.Score;
+import admin.domain.Teacher;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -18,9 +19,8 @@ import java.util.List;
 public class ScoreService extends ServiceImpl<ScoreDao, Score> implements IService<Score> {
     @Autowired
     private ScoreDao scoreDao;
-    private final String PrimaryKey = "id";
+    private final String primaryKey = "id";
     private final Page<Score> page = new Page<>(1, 10);
-
 
     public Page<Score> getPage(int currentPage, int pageSize) {
         this.page.setCurrent(currentPage);
@@ -45,20 +45,20 @@ public class ScoreService extends ServiceImpl<ScoreDao, Score> implements IServi
 
     public Score getByPrimaryKey(Integer key){
         QueryWrapper<Score> wrapper = new QueryWrapper<Score>()
-                .eq(MyUtils.AllParamIsMeaningful(true, key),PrimaryKey, key);
+                .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
         return this.getOne(wrapper);
     }
 
     public boolean removeByPrimaryKey(Integer key){
         QueryWrapper<Score> wrapper = new QueryWrapper<Score>()
-                .eq(MyUtils.AllParamIsMeaningful(true, key),PrimaryKey, key);
+                .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
         return scoreDao.delete(wrapper)>0;
     }
 
     public boolean update(Score score){
         if (score==null) return  false;
         QueryWrapper<Score> wrapper = new QueryWrapper<Score>()
-                .eq(PrimaryKey, score.getId());
+                .eq(primaryKey, score.getId());
         return scoreDao.update(score, wrapper)>0;
     }
 

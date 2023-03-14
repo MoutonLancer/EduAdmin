@@ -49,19 +49,18 @@ create table edu_StudentCourse(
     student_id varchar(20) NOT NULL,
     course_id varchar(20)  NOT NULL,
     UNIQUE KEY UNIQUE_course__course_student (course_id,student_id),
-    CONSTRAINT fk_student_id    FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id),
-    CONSTRAINT fk_curriculum_id FOREIGN KEY(course_id) REFERENCES edu_curriculum(course_id)
+    CONSTRAINT fk_studentinfo__studentid FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT fk_curriculum__courseid FOREIGN KEY(course_id) REFERENCES edu_curriculum(course_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 #学生成绩表
 create table edu_studentScore (
     id tinyint primary key auto_increment,
-    course_id varchar(20),
-    course_name varchar(20),
-    teacher_id varchar(20),
-    student_id varchar(20),
+    course_id varchar(20) NOT NULL ,
+    course_name varchar(20)NOT NULL ,
+    teacher_id varchar(20) NOT NULL ,
+    student_id varchar(20) NOT NULL ,
     score tinyint,
     UNIQUE KEY UNIQUE_course__course_student (course_id,student_id),
-    CONSTRAINT fk_stu_id FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id),
-    CONSTRAINT fk_cur_id FOREIGN KEY(course_id) REFERENCES edu_curriculum(course_id)
+    CONSTRAINT fk_course__unique_courseid_studentid FOREIGN KEY(course_id,student_id) REFERENCES edu_studentcourse(course_id,student_id) ON UPDATE CASCADE ON DELETE CASCADE
 );

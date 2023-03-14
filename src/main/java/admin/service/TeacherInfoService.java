@@ -3,6 +3,7 @@ package admin.service;
 
 import admin.Utils.MyUtils;
 import admin.dao.TeacherInfoDao;
+import admin.domain.Student;
 import admin.domain.Teacher;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,7 +21,6 @@ public class TeacherInfoService extends ServiceImpl<TeacherInfoDao, Teacher> imp
     private TeacherInfoDao teacherInfoDao;
     private final String primaryKey = "teacher_id";
     private final Page<Teacher> page = new Page<>(1, 10);
-
 
     public Page<Teacher> getPage(int currentPage, int pageSize) {
         this.page.setCurrent(currentPage);

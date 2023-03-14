@@ -2,6 +2,7 @@ package admin.service;
 
 import admin.Utils.MyUtils;
 import admin.dao.UserDao;
+import admin.domain.Score;
 import admin.domain.User;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,6 +16,7 @@ import java.util.List;
 public class UserService extends ServiceImpl<UserDao,User> implements IService<User> {
     @Autowired
     private UserDao userDao;
+    private final String primaryKey = "id";
     private final Page<User> page = new Page<>(1, 10);
 
 

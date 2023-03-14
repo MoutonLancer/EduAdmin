@@ -4,6 +4,7 @@ package admin.service;
 import admin.Utils.MyUtils;
 import admin.dao.CurriculumDao;
 import admin.domain.Curriculum;
+import admin.domain.Score;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -18,9 +19,8 @@ import java.util.List;
 public class CurriculumService extends ServiceImpl<CurriculumDao, Curriculum> implements IService<Curriculum> {
     @Autowired
     private CurriculumDao curriculumDao;
-    private final String PrimaryKey = "id";
+    private final String primaryKey = "id";
     private final Page<Curriculum> page = new Page<>(1, 10);
-
 
     public Page<Curriculum> getPage(int currentPage, int pageSize) {
         this.page.setCurrent(currentPage);
@@ -48,20 +48,20 @@ public class CurriculumService extends ServiceImpl<CurriculumDao, Curriculum> im
 
     public Curriculum getByPrimaryKey(Integer key){
         QueryWrapper<Curriculum> wrapper = new QueryWrapper<Curriculum>()
-                .eq(MyUtils.AllParamIsMeaningful(true, key),PrimaryKey, key);
+                .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
         return this.getOne(wrapper);
     }
 
     public boolean removeByPrimaryKey(Integer key){
         QueryWrapper<Curriculum> wrapper = new QueryWrapper<Curriculum>()
-                .eq(MyUtils.AllParamIsMeaningful(true, key),PrimaryKey, key);
+                .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
         return curriculumDao.delete(wrapper)>0;
     }
 
     public boolean update(Curriculum curriculum){
         if (curriculum==null) return  false;
         QueryWrapper<Curriculum> wrapper = new QueryWrapper<Curriculum>()
-                .eq(PrimaryKey, curriculum.getId());
+                .eq(primaryKey, curriculum.getId());
         return curriculumDao.update(curriculum, wrapper)>0;
     }
 

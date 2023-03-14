@@ -54,7 +54,10 @@
                         this.r.flag = res.data.flag;
                         this.r.data = res.data.data;
                         this.r.message = res.data.message;
-                        this.showMessage=true;
+                        if (this.r.flag && this.r.data)
+                            window.location.href="../pages/studentInfo.html"
+                        else
+                            this.showMessage=true;
                     });
                 },
                 inputChange(){

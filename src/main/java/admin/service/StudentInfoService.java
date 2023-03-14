@@ -4,7 +4,6 @@ package admin.service;
 import admin.Utils.MyUtils;
 import admin.dao.StudentInfoDao;
 import admin.domain.Student;
-import admin.domain.User;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -19,9 +18,8 @@ import java.util.List;
 public class StudentInfoService extends ServiceImpl<StudentInfoDao, Student> implements IService<Student> {
     @Autowired
     private StudentInfoDao studentInfoDao;
-    private final String PrimaryKey = "student_id";
+    private final String primaryKey = "student_id";
     private final Page<Student> page = new Page<>(1, 10);
-
 
     public Page<Student> getPage(int currentPage, int pageSize) {
         this.page.setCurrent(currentPage);
@@ -50,20 +48,20 @@ public class StudentInfoService extends ServiceImpl<StudentInfoDao, Student> imp
 
     public Student getByPrimaryKey(String key){
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()
-                .eq(MyUtils.AllParamIsMeaningful(true, key),PrimaryKey, key);
+                .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
         return this.getOne(wrapper);
     }
 
     public boolean removeByPrimaryKey(String key){
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()
-                .eq(MyUtils.AllParamIsMeaningful(true, key),PrimaryKey, key);
+                .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
         return studentInfoDao.delete(wrapper)>0;
     }
 
     public boolean update(Student student){
         if (student == null) return false;
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()
-                .eq(PrimaryKey, student.getStudentId());
+                .eq(primaryKey, student.getStudentId());
         return studentInfoDao.update(student, wrapper)>0;
     }
 
