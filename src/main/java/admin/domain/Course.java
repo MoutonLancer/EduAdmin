@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@TableName("edu_studentCourse")
+@TableName("edu_studentcourse")
 public class Course {
     private Integer id;
     private String studentId;

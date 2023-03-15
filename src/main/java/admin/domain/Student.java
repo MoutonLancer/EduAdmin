@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@TableName("edu_studentInfo")
+@TableName("edu_studentinfo")
 public class Student {
     private String studentId;
     private String studentName;

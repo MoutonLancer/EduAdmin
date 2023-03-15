@@ -12,7 +12,7 @@ create table edu_user(
 );
 
 #学生基本信息表
-create table edu_studentInfo(
+create table edu_studentinfo(
     student_id varchar(20)  primary key ,
     student_name varchar(20) NOT NULL,
     department varchar(20),
@@ -24,7 +24,7 @@ create table edu_studentInfo(
 );
 
 #教师基本信息表
-create table edu_teacherInfo(
+create table edu_teacherinfo(
     teacher_id   varchar(20) primary key ,
     teacher_name varchar(20) NOT NULL,
     department  varchar(20),
@@ -44,7 +44,7 @@ create table edu_curriculum(
 );
 
 #学生选课表
-create table edu_StudentCourse(
+create table edu_studentcourse(
     id tinyint primary key auto_increment,
     student_id varchar(20) NOT NULL,
     course_id varchar(20)  NOT NULL,
@@ -54,7 +54,7 @@ create table edu_StudentCourse(
 );
 
 #学生成绩表
-create table edu_studentScore (
+create table edu_studentscore (
     id tinyint primary key auto_increment,
     course_id varchar(20) NOT NULL ,
     course_name varchar(20)NOT NULL ,

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Primary;
 
 @Data
 @AllArgsConstructor
-@TableName("edu_studentScore")
+@TableName("edu_studentscore")
 public class Score {
     private Integer id;
     private String courseId;

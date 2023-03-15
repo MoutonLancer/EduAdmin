@@ -11,5 +11,17 @@ mybatis-plus:
       table-prefix: edu_
       id-type: auto
 
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  file:
+    name: G:\Code\Code\Java\EduAdmin\logs\server.log
+  level:
+    root: warn
+  logback:
+    rollingpolicy:
+      max-history: 30
+      max-file-size: 4KB
+      file-name-pattern: server.%d{yyyy-MM-dd}.%i.log
+
