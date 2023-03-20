@@ -2,6 +2,7 @@ package admin.controller;
 
 import admin.domain.Score;
 import admin.domain.protocol.R;
+import admin.service.CourseService;
 import admin.service.ScoreService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class ScoreController {
     @Autowired
     private ScoreService scoreService;
 
+    @Autowired
+    private CourseService courseService;
     @GetMapping
     public R getAll(){
         R r = new R();
@@ -61,10 +64,11 @@ public class ScoreController {
 
     @PostMapping
     public R save(@RequestBody Score score){
-        R r = new R();
-        r.setFlag(true);
-        r.setData(scoreService.save(score));
-        return r;
+        if (!courseService.CourseIsExist(score.getCourseId(),score.getStudentId()))
+            return new R(true,false,"选课信息不存在");
+        if(null != scoreService.getByInfo(score.getCourseId(),null,score.getStudentId()))
+            return new R(true,false,"成绩信息已经存在");
+        return new R(true,scoreService.save(score),"添加成功");
     }
 
     @DeleteMapping("/{id}")

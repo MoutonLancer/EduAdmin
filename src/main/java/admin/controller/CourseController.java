@@ -3,6 +3,8 @@ package admin.controller;
 import admin.domain.Course;
 import admin.domain.protocol.R;
 import admin.service.CourseService;
+import admin.service.CurriculumService;
+import admin.service.StudentInfoService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,10 @@ import java.util.List;
 @ResponseBody
 @RequestMapping("/courses")
 public class CourseController {
-
+    @Autowired
+    StudentInfoService studentInfoService;
+    @Autowired
+    CurriculumService curriculumService;
     @Autowired
     private CourseService courseService;
 
@@ -35,10 +40,10 @@ public class CourseController {
         return r;
     }
 
-    @GetMapping("_{id}/_{courseId}/_{studentId}/_{address}")
-    public R getByInfo(@PathVariable Integer id,@PathVariable String courseId, @PathVariable String studentId){
+    @GetMapping("/_{courseId}/_{studentId}")
+    public R getByInfo(@PathVariable String courseId, @PathVariable String studentId){
         R r = new R();
-        List<Course> Courses = courseService.getByInfo(id,courseId,studentId);
+        List<Course> Courses = courseService.getByInfo(null,courseId,studentId);
         r.setFlag(!Courses.isEmpty());
         r.setData(Courses);
         return r;
@@ -60,11 +65,13 @@ public class CourseController {
 
 
     @PostMapping
-    public R save(@RequestBody Course Course){
-        R r = new R();
-        r.setFlag(true);
-        r.setData(courseService.save(Course));
-        return r;
+    public R save(@RequestBody Course course){
+        if (!curriculumService.curriculumIsExist(course.getCourseId()))
+            return new R(true,false,"课程信息不存在");
+        if (!studentInfoService.studentIsExist(course.getStudentId()))
+            return new R(true,false,"学生信息不存在");
+        return new R(true,courseService.save(course),"添加成功");
+
     }
 
     @DeleteMapping("/{id}")

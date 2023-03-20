@@ -3,6 +3,7 @@ package admin.service;
 
 import admin.Utils.MyUtils;
 import admin.dao.StudentInfoDao;
+import admin.domain.Curriculum;
 import admin.domain.Student;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -44,7 +45,9 @@ public class StudentInfoService extends ServiceImpl<StudentInfoDao, Student> imp
         return studentInfoDao.selectList(wrapper);
     }
 
-
+    public Boolean studentIsExist(String studentId){
+        return 0 != this.getByInfo(studentId,null,null,null,null).size();
+    }
 
     public Student getByPrimaryKey(String key){
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()

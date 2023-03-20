@@ -44,7 +44,9 @@ public class CurriculumService extends ServiceImpl<CurriculumDao, Curriculum> im
         return curriculumDao.selectList(wrapper);
     }
 
-
+    public Boolean curriculumIsExist(String courseId) {
+        return 0 != this.getByInfo(courseId, null, null, null).size();
+    }
 
     public Curriculum getByPrimaryKey(Integer key){
         QueryWrapper<Curriculum> wrapper = new QueryWrapper<Curriculum>()

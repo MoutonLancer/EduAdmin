@@ -6,8 +6,8 @@ create table edu_user(
     id tinyint primary key auto_increment,
     username varchar(20) UNIQUE NOT NULL ,
     password varchar(20) NOT NULL ,
-    position enum ('teacher','student','admin') NOT NULL ,
-    code varchar(20) NOT NULL,
+    position enum ('teacher','student','admin') NOT NULL default 'student',
+    code varchar(20) NOT NULL default  0,
     register_time datetime
 );
 

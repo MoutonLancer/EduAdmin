@@ -44,6 +44,10 @@ public class CourseService extends ServiceImpl<CourseDao, Course> implements ISe
         return courseDao.selectList(wrapper);
     }
 
+    public Boolean CourseIsExist(String courseId,String studentId){
+        return 0 != this.getByInfo(null,courseId,studentId).size();
+    }
+
     public Course getByPrimaryKey(Integer key){
         QueryWrapper<Course> wrapper = new QueryWrapper<Course>()
                 .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
