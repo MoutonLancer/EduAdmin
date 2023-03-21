@@ -38,10 +38,10 @@ public class ScoreController {
         return r;
     }
 
-    @GetMapping("_{courseId}/_{courseName}/_{studentId}")
-    public R getByInfo(@PathVariable String courseId,@PathVariable String courseName, @PathVariable String studentId){
+    @GetMapping("_{courseId}/_{courseName}/_{teacherId}/_{studentId}")
+    public R getByInfo(@PathVariable String courseId,@PathVariable String courseName,@PathVariable String teacherId, @PathVariable String studentId){
         R r = new R();
-        List<Score> scores = scoreService.getByInfo(courseId,courseName,studentId);
+        List<Score> scores = scoreService.getByInfo(courseId,courseName,teacherId,studentId);
         r.setFlag(!scores.isEmpty());
         r.setData(scores);
         return r;
@@ -66,7 +66,7 @@ public class ScoreController {
     public R save(@RequestBody Score score){
         if (!courseService.CourseIsExist(score.getCourseId(),score.getStudentId()))
             return new R(true,false,"选课信息不存在");
-        if(null != scoreService.getByInfo(score.getCourseId(),null,score.getStudentId()))
+        if(null != scoreService.getByInfo(score.getCourseId(),null,null,score.getStudentId()))
             return new R(true,false,"成绩信息已经存在");
         return new R(true,scoreService.save(score),"添加成功");
     }

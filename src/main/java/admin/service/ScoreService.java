@@ -33,12 +33,13 @@ public class ScoreService extends ServiceImpl<ScoreDao, Score> implements IServi
     public List<Score> getAll(){
         return scoreDao.selectList(null);
     }
-    public List<Score> getByInfo(String courseId, String courseName, String studentId){
-        if (MyUtils.AllParamIsMeaningful(false, courseId,courseName,studentId))
+    public List<Score> getByInfo(String courseId, String courseName,String teacherId, String studentId){
+        if (MyUtils.AllParamIsMeaningful(false, courseId,courseName,teacherId,studentId))
             return getPage().getRecords();
         QueryWrapper<Score> wrapper = new QueryWrapper<Score>()
                 .eq( MyUtils.AllParamIsMeaningful(true, courseId),"course_id", courseId)
                 .eq( MyUtils.AllParamIsMeaningful(true, courseName),"course_name", courseName)
+                .eq( MyUtils.AllParamIsMeaningful(true, teacherId),"teacher_id", teacherId)
                 .eq( MyUtils.AllParamIsMeaningful(true, studentId), "student_id", studentId);
         return scoreDao.selectList(wrapper);
     }

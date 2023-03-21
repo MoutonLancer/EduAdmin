@@ -25,8 +25,8 @@ public class ScoreServiceTest {
     }
     @Test
     public void getByInfoTest(){
-        scoreService.getByInfo("9099",null,null);
-        scoreService.getByInfo("8088",null,null);
+        scoreService.getByInfo("9099",null,null,null);
+        scoreService.getByInfo("8088",null,null,null);
     }
     @Test
     public void getByPrimaryKeyTest(){
