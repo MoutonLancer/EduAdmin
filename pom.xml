@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>EduAdmin</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>EduAdmin</name>
     <description>EduAdmin</description>
 
@@ -63,6 +63,11 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.76</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

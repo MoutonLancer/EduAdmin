@@ -42,20 +42,23 @@
                     password: ''
                 },
                 r:{
-                    flag:null,
-                    data:null,
+                    code:null,
+                    token:null,
                     message:""
                 },
                 showMessage:false
             },
             methods:{
+                //获取accessToken
                 login(){
                     axios.post("/userFun/login",this.userInfo).then((res)=>{
-                        this.r.flag = res.data.flag;
-                        this.r.data = res.data.data;
+                        this.r.code = res.data.code;
+                        this.r.token = res.data.data;
                         this.r.message = res.data.message;
-                        if (this.r.flag && this.r.data)
-                            window.location.href="../pages/studentInfo.html"
+                        if (this.r.code == 999){
+                            localStorage.setItem('token', this.r.token);
+                            window.location.href="../pages/studentInfo.html";
+                        }
                         else
                             this.showMessage=true;
                     });

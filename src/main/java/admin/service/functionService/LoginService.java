@@ -14,12 +14,15 @@ public class LoginService {
     @Autowired
     UserService userService;
 
-    public boolean login(String username, String password){
-        if (MyUtils.AllParamIsMeaningful(true,username,password))
-            return  null != userService.getOne(new QueryWrapper<User>()
-                    .eq("username",username)
-                    .eq("password",password));
-        return false;
+    public Integer login(String username, String password){
+        User user = null;
+        if (MyUtils.AllParamIsMeaningful(true,username,password)) {
+            user = userService.getOne(new QueryWrapper<User>()
+                    .eq("username", username)
+                    .eq("password", password));
+            return  user!=null?user.getId():null;
+        }
+        return null;
     }
 
     public boolean usernameUsable(String username){

@@ -42,7 +42,7 @@
                 password: ''
             },
             r:{
-                flag:null,
+                code:null,
                 data:null,
                 message:""
             },
@@ -52,28 +52,32 @@
         methods:{
             register(){
                 axios.post("/userFun/register",this.userInfo).then((res)=>{
-                    this.r.flag = res.data.flag;
+                    this.r.code = res.data.code;
                     this.r.data = res.data.data;
                     this.r.message = res.data.message;
-                    if (this.r.data){
-                        window.alert(this.r.message);
-                        window.location.href = "../pages/login.html";
-                    }
-                    else {
-                        this.messageColor = "color:red";
-                        this.showMessage=true;
+
+                    switch (this.r.code){
+                        case 200:{
+                            window.alert(this.r.message);
+                            window.location.href = "../pages/login.html";
+                        };
+                        case 422:{
+                            this.messageColor = "color:red";
+                            this.showMessage=true;
+                        };
+                        default: this.$message.error(this.r.message);
                     }
                 });
             },
 
             usernameUsable(){
                 axios.get("/userFun/usernameUsable/"+this.userInfo.username).then((res)=>{
-                    this.r.flag = res.data.flag;
+                    this.r.code = res.data.code;
                     this.r.data = res.data.data;
                     this.r.message = res.data.message;
                     this.showMessage=true;
                 }).finally(() => {
-                    this.messageColor = this.r.data?"color:#99ff99":"color:red";
+                    this.messageColor = this.r.code==204?"color:#99ff99":"color:red";
                 });
             }
 

@@ -1,7 +1,7 @@
 package admin.controller;
 
 import admin.domain.Course;
-import admin.domain.protocol.R;
+import admin.domain.protocol.Result;
 import admin.service.CourseService;
 import admin.service.CurriculumService;
 import admin.service.StudentInfoService;
@@ -23,70 +23,63 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping
-    public R getAll(){
-        R r = new R();
-        List<Course> list = courseService.getAll();
-        r.setFlag(!list.isEmpty());
-        r.setData(list);
-        return r;
+    public Result getAll(){
+        List<Course> coursesAll = courseService.getAll();
+        if(coursesAll.isEmpty())
+            return Result.EMPTY;
+        return new Result<>().okResult(coursesAll);
     }
 
     @GetMapping("/{id}")
-    public R getByID(@PathVariable Integer id){
-        R r = new R();
-        Course Course = courseService.getByPrimaryKey(id);
-        r.setFlag(Course != null);
-        r.setData(Course);
-        return r;
+    public Result getByID(@PathVariable Integer id){
+        Course course = courseService.getByPrimaryKey(id);
+        if(course == null)
+            return Result.EMPTY;
+        return new Result<>().okResult(course);
     }
 
     @GetMapping("/_{courseId}/_{studentId}")
-    public R getByInfo(@PathVariable String courseId, @PathVariable String studentId){
-        R r = new R();
-        List<Course> Courses = courseService.getByInfo(null,courseId,studentId);
-        r.setFlag(!Courses.isEmpty());
-        r.setData(Courses);
-        return r;
+    public Result getByInfo(@PathVariable String courseId, @PathVariable String studentId){
+        List<Course> courses = courseService.getByInfo(null,courseId,studentId);
+        if(courses.isEmpty())
+            return Result.EMPTY;
+        return new Result<>().okResult(courses);
     }
 
     @GetMapping("{currentPage}/{pageSize}")
-    public R getPage(@PathVariable int currentPage, @PathVariable int pageSize){
-        R r = new R();
+    public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize){
         Page<Course> page = courseService.getPage(currentPage, pageSize);
-        if (currentPage > page.getPages())//查询的页码大于总页数，重新查询-最后一页
+        if (currentPage > page.getPages())//查询的页码大于总页数，改为重新查询最后一页
             page = courseService.getPage((int)page.getPages(), pageSize);
-        r.setFlag(!page.getRecords().isEmpty());
-        r.setData(page);
-        return r;
+
+        if(page.getRecords().isEmpty())
+            return Result.EMPTY;
+        return new Result<>().okResult(page);
     }
 
-
-
-
-
     @PostMapping
-    public R save(@RequestBody Course course){
+    public Result save(@RequestBody Course course){
         if (!curriculumService.curriculumIsExist(course.getCourseId()))
-            return new R(true,false,"课程信息不存在");
+            return Result.FAIL.setMessage("课程信息不存在");
         if (!studentInfoService.studentIsExist(course.getStudentId()))
-            return new R(true,false,"学生信息不存在");
-        return new R(true,courseService.save(course),"添加成功");
+            return Result.FAIL.setMessage("学生信息不存在");
 
+        if (courseService.save(course))
+            return Result.SUCCESS.setMessage("添加成功");
+        return Result.FAIL.setMessage("添加失败");
     }
 
     @DeleteMapping("/{id}")
-    public R delete(@PathVariable Integer id){
-        R r = new R();
-        r.setFlag(true);
-        r.setData(courseService.removeByPrimaryKey(id));
-        return r;
+    public Result delete(@PathVariable Integer id){
+        if (courseService.removeByPrimaryKey(id))
+            return Result.SUCCESS.setMessage("删除成功");
+        return Result.FAIL.setMessage("删除失败");
     }
 
     @PutMapping
-    public R update(@RequestBody Course Course){
-        R r = new R();
-        r.setFlag(true);
-        r.setData(courseService.update(Course));
-        return r;
+    public Result update(@RequestBody Course Course){
+        if (courseService.update(Course))
+            return Result.SUCCESS.setMessage("更新成功");
+        return Result.FAIL.setMessage("更新失败");
     }
 }

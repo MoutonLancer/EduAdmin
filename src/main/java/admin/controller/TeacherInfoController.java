@@ -1,7 +1,7 @@
 package admin.controller;
 
 import admin.domain.Teacher;
-import admin.domain.protocol.R;
+import admin.domain.protocol.Result;
 import admin.service.TeacherInfoService;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -19,68 +19,59 @@ public class TeacherInfoController {
     private TeacherInfoService teacherInfoService;
 
     @GetMapping
-    public R getAll(){
-        R r = new R();
-        List<Teacher> list = teacherInfoService.getAll();
-        r.setFlag(!list.isEmpty());
-        r.setData(list);
-        return r;
+    public Result getAll(){
+        Result r = new Result();
+        List<Teacher> teacherAll = teacherInfoService.getAll();
+        if(teacherAll.isEmpty())
+            return Result.EMPTY;
+        return new Result<>().okResult(teacherAll);
     }
 
     @GetMapping("/{teacherId}")
-    public R getByID(@PathVariable String teacherId){
-        R r = new R();
+    public Result getByID(@PathVariable String teacherId){
         Teacher teacher = teacherInfoService.getByPrimaryKey(teacherId);
-        r.setFlag(teacher != null);
-        r.setData(teacher);
-        return r;
+        if(teacher == null)
+            return Result.EMPTY;
+        return new Result<>().okResult(teacher);
     }
 
     @GetMapping("_{teacherId}/_{teacherName}/_{department}/_{position}")
-    public R getByInfo(@PathVariable String teacherId,@PathVariable String teacherName, @PathVariable String department, @PathVariable String position){
-        R r = new R();
+    public Result getByInfo(@PathVariable String teacherId, @PathVariable String teacherName, @PathVariable String department, @PathVariable String position){
         List<Teacher> teachers = teacherInfoService.getByInfo(teacherId, teacherName, department, position);
-        r.setFlag(!teachers.isEmpty());
-        r.setData(teachers);
-        return r;
+        if(teachers.isEmpty())
+            return Result.EMPTY;
+        return new Result<>().okResult(teachers);
     }
 
     @GetMapping("{currentPage}/{pageSize}")
-    public R getPage(@PathVariable int currentPage, @PathVariable int pageSize){
-        R r = new R();
+    public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize){
         Page<Teacher> page = teacherInfoService.getPage(currentPage, pageSize);
         if (currentPage > page.getPages())//查询的页码大于总页数，重新查询-最后一页
             page = teacherInfoService.getPage((int)page.getPages(), pageSize);
-        r.setFlag(!page.getRecords().isEmpty());
-        r.setData(page);
-        return r;
+
+        if(page.getRecords().isEmpty())
+            return Result.EMPTY;
+        return new Result<>().okResult(page);
     }
 
-
-
-
-
     @PostMapping
-    public R save(@RequestBody Teacher teacher){
-        R r = new R();
-        r.setFlag(true);
-        r.setData(teacherInfoService.save(teacher));
-        return r;
+    public Result save(@RequestBody Teacher teacher){
+        if (teacherInfoService.save(teacher))
+            return Result.SUCCESS.setMessage("添加成功");
+        return Result.FAIL.setMessage("添加失败");
     }
 
     @DeleteMapping("{teacherId}")
-    public R delete(@PathVariable String teacherId){
-        R r = new R();
-        r.setFlag(true);
-        r.setData(teacherInfoService.removeByPrimaryKey(teacherId));
-        return r;
+    public Result delete(@PathVariable String teacherId){
+        if (teacherInfoService.removeByPrimaryKey(teacherId))
+            return Result.SUCCESS.setMessage("删除成功");
+        return Result.FAIL.setMessage("删除失败");
     }
 
     @PutMapping
-    public R update(@RequestBody Teacher teacher){
-        R r = new R();
-        r.setFlag(true);
-        r.setData(teacherInfoService.update(teacher));
-        return r;
+    public Result update(@RequestBody Teacher teacher){
+        if (teacherInfoService.update(teacher))
+            return Result.SUCCESS.setMessage("更新成功");
+        return Result.FAIL.setMessage("更新失败");
     }
 }
