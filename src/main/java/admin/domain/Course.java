@@ -12,4 +12,5 @@ public class Course {
     private Integer id;
     private String studentId;
     private String courseId;
+    private String state;
 }

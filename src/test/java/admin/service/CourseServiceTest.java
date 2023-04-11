@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class CourseServiceTest {
     @Autowired
     CourseService courseService;
-    Course testData = new Course(66, "743","8088" );
+    Course testData = new Course(66, "743","8088",null);
 
 
     @Test
@@ -25,8 +25,8 @@ public class CourseServiceTest {
     }
     @Test
     public void getByInfoTest(){
-        courseService.getByInfo(1,"7077","740");
-        courseService.getByInfo(null,"8088",null);
+        courseService.getByInfo(1,"7077","740",null);
+        courseService.getByInfo(null,"8088",null,null);
     }
     @Test
     public void getByPrimaryKeyTest(){

@@ -51,7 +51,7 @@
             methods:{
                 //获取accessToken
                 login(){
-                    axios.post("/userFun/login",this.userInfo).then((res)=>{
+                    axios.post("/adminFun/adminLogin",this.userInfo).then((res)=>{
                         this.r.code = res.data.code;
                         this.r.token = res.data.data;
                         this.r.message = res.data.message;

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @ResponseBody
@@ -38,9 +39,9 @@ public class CourseController {
         return new Result<>().okResult(course);
     }
 
-    @GetMapping("/_{courseId}/_{studentId}")
-    public Result getByInfo(@PathVariable String courseId, @PathVariable String studentId){
-        List<Course> courses = courseService.getByInfo(null,courseId,studentId);
+    @GetMapping("/_{courseId}/_{studentId}/_{state}")
+    public Result getByInfo(@PathVariable String courseId, @PathVariable String studentId, @PathVariable String state){
+        List<Course> courses = courseService.getByInfo(null,courseId, studentId, state);
         if(courses.isEmpty())
             return Result.EMPTY;
         return new Result<>().okResult(courses);
@@ -81,5 +82,13 @@ public class CourseController {
         if (courseService.update(Course))
             return Result.SUCCESS.setMessage("更新成功");
         return Result.FAIL.setMessage("更新失败");
+    }
+
+    @PatchMapping
+    public Result updateState(@RequestBody Map<String,Object> map){
+        if (courseService.updateState((Integer) map.get("id"),(String) map.get("state")))
+            return Result.SUCCESS.setMessage("更新成功");
+        return Result.FAIL.setMessage("更新失败");
+
     }
 }

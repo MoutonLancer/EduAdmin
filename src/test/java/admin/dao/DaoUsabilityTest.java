@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class DaoUsabilityTest {
     @Autowired
-    private UserDao userDao;
+    private AdminDao adminDao;
     @Autowired
     private StudentInfoDao studentInfoDao;
     @Autowired
@@ -26,7 +26,7 @@ class DaoUsabilityTest {
 
     @Test
     public void user(){
-        userDao.selectById(4);
+        adminDao.selectById(4);
     }
     @Test
     public void student(){

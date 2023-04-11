@@ -51,7 +51,7 @@
         },
         methods:{
             register(){
-                axios.post("/userFun/register",this.userInfo).then((res)=>{
+                axios.post("/adminFun/adminRegister",this.userInfo).then((res)=>{
                     this.r.code = res.data.code;
                     this.r.data = res.data.data;
                     this.r.message = res.data.message;
@@ -71,7 +71,7 @@
             },
 
             usernameUsable(){
-                axios.get("/userFun/usernameUsable/"+this.userInfo.username).then((res)=>{
+                axios.get("/adminFun/adminUsernameUsable/"+this.userInfo.username).then((res)=>{
                     this.r.code = res.data.code;
                     this.r.data = res.data.data;
                     this.r.message = res.data.message;

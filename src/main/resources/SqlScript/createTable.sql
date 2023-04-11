@@ -1,12 +1,18 @@
 
 use eduadmindb;
-#用户表
-
+#管理员表
+create table edu_admin(
+    id tinyint primary key auto_increment,
+    username varchar(20) UNIQUE NOT NULL ,
+    password varchar(20) NOT NULL ,
+    code varchar(20) NOT NULL default  0,
+    register_time datetime
+);
 create table edu_user(
     id tinyint primary key auto_increment,
     username varchar(20) UNIQUE NOT NULL ,
     password varchar(20) NOT NULL ,
-    position enum ('teacher','student','admin') NOT NULL default 'student',
+    position boolean NULL DEFAULT false,
     code varchar(20) NOT NULL default  0,
     register_time datetime
 );
@@ -48,6 +54,7 @@ create table edu_studentcourse(
     id tinyint primary key auto_increment,
     student_id varchar(20) NOT NULL,
     course_id varchar(20)  NOT NULL,
+    state enum('1','-1','0') NOT NULL default '0' comment '1:通过审核,-1:未通过审核,0:待审核',
     UNIQUE KEY UNIQUE_course__course_student (course_id,student_id),
     CONSTRAINT fk_studentinfo__studentid FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT fk_curriculum__courseid FOREIGN KEY(course_id) REFERENCES edu_curriculum(course_id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -64,3 +71,25 @@ create table edu_studentscore (
     UNIQUE KEY UNIQUE_course__course_student (course_id,student_id),
     CONSTRAINT fk_course__unique_courseid_studentid FOREIGN KEY(course_id,student_id) REFERENCES edu_studentcourse(course_id,student_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+#请假申请表
+create table edu_leave(
+    id tinyint primary key auto_increment,
+    student_id varchar(20) NOT NULL,
+    reason varchar(200) default '无',
+    state enum('1','-1','0') NOT NULL default '0' comment '1:通过审核,-1:未通过审核,0:待审核',
+    start_time datetime NOT NULL,
+    end_time datetime NOT NULL ,
+    application_time datetime NOT NULL ,
+    approval_time datetime,
+    approver varchar(20),
+    CONSTRAINT fk2_studentinfo__studentid FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+
+
+
+
+

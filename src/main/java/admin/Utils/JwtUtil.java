@@ -1,5 +1,6 @@
 package admin.Utils;
 
+import admin.Utils.Exception.UtilsCreateException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -17,8 +18,12 @@ import java.util.*;
  */
 public class JwtUtil {
 
+    private JwtUtil() throws UtilsCreateException {
+        throw new UtilsCreateException("No EduAdmin.Utils.JwtUtil instances for you!");
+    }
+
     //默认有效期
-    private static int JWT_TTL_HOUR   = 0;
+    private static int JWT_TTL_HOUR   = 1;
     private static int JWT_TTL_MINUTE = 30;
     private static int JWT_TTL_SECOND = 0;
     //默认签发者

@@ -6,6 +6,7 @@ import admin.dao.CourseDao;
 import admin.domain.Course;
 import admin.domain.Score;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,18 +35,20 @@ public class CourseService extends ServiceImpl<CourseDao, Course> implements ISe
     public List<Course> getAll(){
         return courseDao.selectList(null);
     }
-    public List<Course> getByInfo(Integer id, String courseId, String studentId){
-        if (MyUtils.AllParamIsMeaningful(false,id, courseId, studentId))
-            return getPage().getRecords();
+
+    public List<Course> getByInfo(Integer id, String courseId, String studentId, String state){
+        if (MyUtils.AllParamIsMeaningful(false,id, courseId, studentId, state))
+                return getPage().getRecords();
         QueryWrapper<Course> wrapper = new QueryWrapper<Course>()
                 .eq( MyUtils.AllParamIsMeaningful(true, id),"id", id)
                 .eq( MyUtils.AllParamIsMeaningful(true, courseId),"course_id", courseId)
-                .eq( MyUtils.AllParamIsMeaningful(true, studentId), "student_id", studentId);
+                .eq( MyUtils.AllParamIsMeaningful(true, studentId), "student_id", studentId)
+                .eq( MyUtils.AllParamIsMeaningful(true, state),"state",state);
         return courseDao.selectList(wrapper);
     }
 
     public Boolean CourseIsExist(String courseId,String studentId){
-        return 0 != this.getByInfo(null,courseId,studentId).size();
+        return 0 != this.getByInfo(null,courseId,studentId,null).size();
     }
 
     public Course getByPrimaryKey(Integer key){
@@ -65,6 +68,14 @@ public class CourseService extends ServiceImpl<CourseDao, Course> implements ISe
         QueryWrapper<Course> wrapper = new QueryWrapper<Course>()
                 .eq(primaryKey, course.getId());
         return courseDao.update(course, wrapper)>0;
+    }
+
+    public boolean updateState(Integer id, String state){
+        if (id == null || state == null) return  false;
+        UpdateWrapper<Course> updateWrapper = new UpdateWrapper<Course>()
+                .eq("id", id)
+                .set("state", state);
+        return 1==courseDao.update(null,updateWrapper);
     }
 
 }

@@ -3,6 +3,12 @@ package admin.Utils;
 import admin.Utils.Exception.UtilsCreateException;
 
 import javax.servlet.http.Cookie;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
 
 public class MyUtils {
 
@@ -22,12 +28,18 @@ public class MyUtils {
     public static boolean AllParamIsMeaningful(Boolean flag, Object ...str){
         if(str==null || str.length==0)    return !flag;
         for (Object o : str) {
+
+            //含有元素的集合视为有效数据
+            if (o instanceof Map && ((Map<?, ?>)o).size()==0)               return false;
+            if (o instanceof Collection && ((Collection<?>)o).size()==0)    return false;
+
             //非String包装类视为有效数据
             if((!(o instanceof Number) && !(o instanceof Boolean) && !(o instanceof Character) && !(o instanceof String)) == flag)
                 if(!(o instanceof String))
                     return false;
+
             //String 非 ”“ ”null“ 视为有效数据
-            if((o instanceof String && !MyUtils.StringEquals((String) o, "", "null"))!= flag )
+            if((o instanceof String && !MyUtils.StringEquals((String) o, "", "null", "NULL", "Null"))!= flag )
                 if (o instanceof String)
                     return false;
         }
@@ -47,5 +59,47 @@ public class MyUtils {
                 return true;
         }
         return false;
+    }
+
+    /** 生成学生学号与教师教编，及互相转换  */
+    public static final Integer CODE_LENGTH = 7;
+    public static String codeGenerate(Integer id){
+        return codeGenerate(false, id);
+    }
+    public static String codeGenerate(Boolean isTeacher, Integer id){
+        if (id == null || id.toString().length()>CODE_LENGTH)
+            return "-";
+        isTeacher = isTeacher != null && isTeacher;
+        int year = LocalDateTime.now().getYear();
+        StringBuilder code = new StringBuilder(id.toString());
+
+        int l = code.length();
+        for (int i=0; i < CODE_LENGTH - l; i++)
+            code.insert(0, "0");
+
+        return (isTeacher?"T":"S") + year + code;
+    }
+    public static String codeConverter(String code){
+        if (code.length() != CODE_LENGTH + 5)
+            return code;
+        return ((code.charAt(0) == 'T')?"S":"T") + code.substring(1);
+    }
+
+
+    /**  布尔值字符串转Boolean,其他字符串为空  */
+    public static Boolean strToBool(String str){
+        if (str==null)
+            return null;
+        if (str.equals("true") ||str.equals("TRUE") ||str.equals("True")||
+            str.equals("false")||str.equals("FALSE")||str.equals("False"))
+            return  Boolean.parseBoolean(str);
+        return null;
+
+    }
+
+    public static Boolean strLikeNull(String str){
+        if (str == null)
+            return false;
+        return str.equals("null") || str.equals("NULL") || str.equals("Null");
     }
 }

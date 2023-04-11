@@ -8,12 +8,11 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@TableName("edu_user")
-public class User {
+@TableName("edu_admin")
+public class Admin {
     private Integer id;
     private String username;
     private String password;
-    private Boolean position;
     private String code;
     private Date registerTime ;
 

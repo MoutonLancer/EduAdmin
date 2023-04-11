@@ -1,9 +1,9 @@
-insert into edu_user
+insert into edu_admin
 values
-    (null,'root','pass','teacher','x','2023-03-01'),
-    (null,'a','1','student','x','2023-03-01'),
-    (null,'b','2','teacher','x','2023-04-01'),
-    (null,'c','3','admin'  ,'x','2023-05-01');
+    (null,'root','pass','x','2023-03-01'),
+    (null,'a','1','x','2023-03-01'),
+    (null,'b','2','x','2023-04-01'),
+    (null,'c','3','x','2023-05-01');
 
 insert into edu_studentinfo
 values
@@ -36,11 +36,11 @@ values
 
 insert into edu_studentcourse
 values
-    (null,'740','7077'),
-    (null,'740','8088'),
-    (null,'741','7077'),
-    (null,'742','8088'),
-    (null,'742','9099');
+    (null,'740','7077','-1'),
+    (null,'740','8088','0'),
+    (null,'741','7077','1'),
+    (null,'742','8088','-1'),
+    (null,'742','9099','1');
 
 insert into edu_studentscore
 values

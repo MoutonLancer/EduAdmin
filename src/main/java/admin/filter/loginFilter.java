@@ -39,7 +39,7 @@ public class loginFilter implements Filter {
                 filterChain.doFilter(request,response);
         }
 
-        if (uri.equals("/") || uri.contains("/userFun"))
+        if (uri.equals("/") || uri.contains("/userFun") || uri.contains("/adminFun"))
             filterChain.doFilter(request,response);//登录操作直接放行
         else {
                 String token = req.getHeader("Authorization");
