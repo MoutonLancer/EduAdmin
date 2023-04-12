@@ -11,13 +11,13 @@ import java.util.Date;
 @TableName("edu_leave")
 public class Leave {
     private Integer id;
-    private String student_id;
+    private String studentId;
     private String reason;
-    private Boolean state;
-    private Date startTime;
-    private Date endTime ;
-    private Date applicationTime ;
-    private Date approvalTime ;
+    private String state;
+    private Long startTime;
+    private Long endTime ;
+    private Long applicationTime ;
+    private Long approvalTime ;
     private String approver;
 
 }

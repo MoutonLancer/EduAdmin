@@ -26,3 +26,7 @@ logging:
       max-file-size: 4KB
       file-name-pattern: ./logs/server.%d{yyyy-MM-dd}.%i.log
 
+
+filter:
+  loginFilterSwitch: true
+

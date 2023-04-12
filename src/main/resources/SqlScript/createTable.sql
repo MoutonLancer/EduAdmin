@@ -78,10 +78,10 @@ create table edu_leave(
     student_id varchar(20) NOT NULL,
     reason varchar(200) default '无',
     state enum('1','-1','0') NOT NULL default '0' comment '1:通过审核,-1:未通过审核,0:待审核',
-    start_time datetime NOT NULL,
-    end_time datetime NOT NULL ,
-    application_time datetime NOT NULL ,
-    approval_time datetime,
+    start_time long NOT NULL comment '请假开始时间',
+    end_time long NOT NULL comment '请假结束时间',
+    application_time long NOT NULL comment '申请时间',
+    approval_time long comment '审批时间',
     approver varchar(20),
     CONSTRAINT fk2_studentinfo__studentid FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id) ON UPDATE CASCADE ON DELETE CASCADE
 );

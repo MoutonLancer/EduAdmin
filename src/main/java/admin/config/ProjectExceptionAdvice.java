@@ -39,5 +39,11 @@ public class ProjectExceptionAdvice {
         ex.printStackTrace();
         return Result.FAIL.setMessage("数据库操作失败");
     }
+    @ExceptionHandler
+    public Result NumberFormatException(NumberFormatException ex){
+        log.warn(ex.getMessage(),ex);
+        ex.printStackTrace();
+        return Result.FAIL.setMessage("数据错误，应为数字");
+    }
 
 }

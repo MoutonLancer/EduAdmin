@@ -2,12 +2,8 @@ package admin.Utils;
 
 import admin.Utils.Exception.UtilsCreateException;
 
-import javax.servlet.http.Cookie;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Map;
 
 public class MyUtils {
@@ -95,6 +91,40 @@ public class MyUtils {
             return  Boolean.parseBoolean(str);
         return null;
 
+    }
+
+    public static Boolean allStrIsInt(String... str){
+        if (str == null)
+            return false;
+        try {
+            for (String s : str)
+                Integer.parseInt(s);
+        }catch (Exception ex){
+            return false;
+        }
+        return true;
+    }
+    public static Integer strToInt(String  str){
+        if (allStrIsInt(str))
+            return Integer.parseInt(str);
+        return null;
+    }
+
+    public static Boolean allStrIsLong(String... str){
+        if (str == null)
+            return false;
+        try {
+            for (String s : str)
+                Long.parseLong(s);
+        }catch (Exception ex){
+            return false;
+        }
+        return true;
+    }
+    public static Long strToLong(String  str){
+        if (allStrIsLong(str))
+            return Long.parseLong(str);
+        return null;
     }
 
     public static Boolean strLikeNull(String str){
