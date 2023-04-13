@@ -1,8 +1,8 @@
-package admin.controller;
+package admin.controller.dataController;
 
 import admin.domain.Student;
 import admin.domain.protocol.Result;
-import admin.service.StudentInfoService;
+import admin.service.dataService.StudentInfoService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @ResponseBody
-@RequestMapping("/students")
+@RequestMapping("/studentInfos")
 public class StudentInfoController {
 
         @Autowired

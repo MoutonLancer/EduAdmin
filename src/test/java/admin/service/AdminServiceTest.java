@@ -1,6 +1,7 @@
 package admin.service;
 
-import admin.service.functionService.AdminLoginService;
+import admin.service.dataService.AdminService;
+import admin.service.login.AdminLoginService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

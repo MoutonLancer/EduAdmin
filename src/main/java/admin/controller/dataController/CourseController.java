@@ -1,59 +1,57 @@
-package admin.controller;
+package admin.controller.dataController;
 
-import admin.Utils.MyUtils;
 import admin.domain.Course;
-import admin.domain.Leave;
 import admin.domain.protocol.Result;
-import admin.service.LeaveService;
-import admin.service.StudentInfoService;
+import admin.service.dataService.CourseService;
+import admin.service.dataService.CurriculumService;
+import admin.service.dataService.StudentInfoService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @ResponseBody
-@RequestMapping("/leaves")
-public class LeaveController {
+@RequestMapping("/courses")
+public class CourseController {
     @Autowired
     StudentInfoService studentInfoService;
     @Autowired
-    LeaveService leaveService;
+    CurriculumService curriculumService;
+    @Autowired
+    private CourseService courseService;
 
     @GetMapping
     public Result getAll(){
-        List<Leave> leaveAll = leaveService.getAll();
-        if(leaveAll.isEmpty())
+        List<Course> coursesAll = courseService.getAll();
+        if(coursesAll.isEmpty())
             return Result.EMPTY;
-        return new Result<>().okResult(leaveAll);
+        return new Result<>().okResult(coursesAll);
     }
 
     @GetMapping("/{id}")
     public Result getByID(@PathVariable Integer id){
-        Leave leave = leaveService.getByPrimaryKey(id);
-        if(leave == null)
+        Course course = courseService.getByPrimaryKey(id);
+        if(course == null)
             return Result.EMPTY;
-        return new Result<>().okResult(leave);
+        return new Result<>().okResult(course);
     }
 
-    @GetMapping("/_{studentId}/_{state}/_{startTime}/_{endTime}/_{approver}")
-    public Result getByInfo(@PathVariable String studentId,@PathVariable String state, @PathVariable String startTime, @PathVariable String endTime, @PathVariable String approver){
-        startTime = startTime.equals("0") ? "null":startTime;
-        endTime   = endTime.equals("0") ? "null":endTime;
-        List<Leave> leaves = leaveService.getByInfo(null,studentId, state, startTime, endTime, approver);
-        if(leaves.isEmpty())
+    @GetMapping("/_{courseId}/_{studentId}/_{state}")
+    public Result getByInfo(@PathVariable String courseId, @PathVariable String studentId, @PathVariable String state){
+        List<Course> courses = courseService.getByInfo(null,courseId, studentId, state);
+        if(courses.isEmpty())
             return Result.EMPTY;
-        return new Result<>().okResult(leaves);
+        return new Result<>().okResult(courses);
     }
 
     @GetMapping("{currentPage}/{pageSize}")
     public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize){
-        Page<Leave> page = leaveService.getPage(currentPage, pageSize);
+        Page<Course> page = courseService.getPage(currentPage, pageSize);
         if (currentPage > page.getPages())//查询的页码大于总页数，改为重新查询最后一页
-            page = leaveService.getPage((int)page.getPages(), pageSize);
+            page = courseService.getPage((int)page.getPages(), pageSize);
 
         if(page.getRecords().isEmpty())
             return Result.EMPTY;
@@ -61,32 +59,34 @@ public class LeaveController {
     }
 
     @PostMapping
-    public Result save(@RequestBody Leave leave){
-        if (!studentInfoService.studentIsExist(leave.getStudentId()))
+    public Result save(@RequestBody Course course){
+        if (!curriculumService.curriculumIsExist(course.getCourseId()))
+            return Result.FAIL.setMessage("课程信息不存在");
+        if (!studentInfoService.studentIsExist(course.getStudentId()))
             return Result.FAIL.setMessage("学生信息不存在");
 
-        if (leaveService.save(leave))
+        if (courseService.save(course))
             return Result.SUCCESS.setMessage("添加成功");
         return Result.FAIL.setMessage("添加失败");
     }
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id){
-        if (leaveService.removeByPrimaryKey(id))
+        if (courseService.removeByPrimaryKey(id))
             return Result.SUCCESS.setMessage("删除成功");
         return Result.FAIL.setMessage("删除失败");
     }
 
     @PutMapping
-    public Result update(@RequestBody Leave leave){
-        if (leaveService.update(leave))
+    public Result update(@RequestBody Course Course){
+        if (courseService.update(Course))
             return Result.SUCCESS.setMessage("更新成功");
         return Result.FAIL.setMessage("更新失败");
     }
 
     @PatchMapping
     public Result updateState(@RequestBody Map<String,Object> map){
-        if (leaveService.updateState((Integer) map.get("id"),(String) map.get("state")))
+        if (courseService.updateState((Integer) map.get("id"),(String) map.get("state")))
             return Result.SUCCESS.setMessage("更新成功");
         return Result.FAIL.setMessage("更新失败");
 

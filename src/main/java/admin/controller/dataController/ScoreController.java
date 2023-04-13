@@ -1,9 +1,9 @@
-package admin.controller;
+package admin.controller.dataController;
 
 import admin.domain.Score;
 import admin.domain.protocol.Result;
-import admin.service.CourseService;
-import admin.service.ScoreService;
+import admin.service.dataService.CourseService;
+import admin.service.dataService.ScoreService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

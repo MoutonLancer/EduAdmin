@@ -1,6 +1,7 @@
 package admin.service;
 
 import admin.domain.Student;
+import admin.service.dataService.StudentInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>登录</title>
+        <link rel="stylesheet" href="../css/loginStyle.css" type="text/css" charset="UTF-8">
+        <script src="../js/vue.js"></script>
+        <script src="../js/axios-0.18.0.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h2>LOGIN</h2>
+            <div>
+                <span id="placeholder">*</span>
+                <span id="Msg" v-show="showMessage">{{r.message}}</span>
+            </div>
+            <div id="input_box" aria-checked="true">
+                <span>Username: </span>
+                <label>
+                    <input type="text" placeholder="请输入用户名" name="username" v-model:value="userInfo.username" @change="inputChange()" >
+                </label>
+            </div>
+            <div class="input_box">
+                <span>Password: </span>
+                <label>
+                    <input type="password" placeholder="请输入密码" name="password" v-model:value="userInfo.password" @change="inputChange()">
+                </label>
+            </div>
+            <button @click="login">登录</button>
+            <br>
+            <span class="text">还没有账号？</span>
+            <a id="registered" href="../pages/registered.html">注册</a>
+        </div>
+    </body>
+
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                userInfo:{
+                    username: '',
+                    password: ''
+                },
+                r:{
+                    code:null,
+                    token:null,
+                    message:""
+                },
+                showMessage:false
+            },
+            methods:{
+                //获取accessToken
+                login(){
+                    axios.post("/adminLoginFun/adminLogin",this.userInfo).then((res)=>{
+                        this.r.code = res.data.code;
+                        this.r.token = res.data.data;
+                        this.r.message = res.data.message;
+                        if (this.r.code == 999){
+                            localStorage.setItem('token', this.r.token);
+                            window.location.href="../pages/studentInfo.html";
+                        }
+                        else
+                            this.showMessage=true;
+                    });
+                },
+                inputChange(){
+                    this.showMessage=false;
+                }
+            }
+        });
+    </script>
+</html>

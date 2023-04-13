@@ -28,5 +28,5 @@ logging:
 
 
 filter:
-  loginFilterSwitch: true
+  loginFilterSwitch: true  #登录校验过滤器
 

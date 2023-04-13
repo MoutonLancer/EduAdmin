@@ -1,16 +1,14 @@
 insert into edu_admin
 values
-    (null,'root','pass','x','2023-03-01'),
-    (null,'a','1','x','2023-03-01'),
-    (null,'b','2','x','2023-04-01'),
-    (null,'c','3','x','2023-05-01');
+    (null,'root','pass','x','2023-03-01');
 
-insert into edu_user
+insert into edu_teacheruser
 values
-    (null,'root','pass',false,'code1','2023-03-01'),
-    (null,'a','1',true,'code1','2023-03-01'),
-    (null,'b','2',false,'code1','2023-04-01'),
-    (null,'c','3',true,'code1','2023-05-01');
+    (null,'t','t','code1','2023-05-01');
+
+insert into edu_studentuser
+values
+    (null,'s','s','code1','2023-05-01');
 
 insert into edu_studentinfo
 values

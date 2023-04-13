@@ -1,32 +1,26 @@
-package admin.controller;
+package admin.controller.Login;
 
 import admin.Utils.JwtUtil;
-import admin.domain.Admin;
-import admin.domain.User;
+import admin.domain.StudentUser;
+import admin.domain.TeacherUser;
 import admin.domain.protocol.Result;
-import admin.service.AdminService;
-import admin.service.UserService;
-import admin.service.functionService.AdminLoginService;
-import admin.service.functionService.LoginService;
+import admin.service.dataService.StudentUserService;
+import admin.service.login.StudentLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @ResponseBody
-@RequestMapping("/userFun")
-public class LoginController {
+@RequestMapping("/studentLoginFun")
+public class StudentLoginController {
     @Autowired
-    AdminLoginService adminLoginService;
+    StudentLoginService studentLoginService;
     @Autowired
-    AdminService adminService;
-    @Autowired
-    LoginService loginService;
-    @Autowired
-    UserService userService;
+    StudentUserService studentUserService;
 
     @PostMapping("/login")
-    public Result login(@RequestBody User user){
-        String userCode =  loginService.login(user.getUsername(), user.getPassword());
+    public Result login(@RequestBody StudentUser studentUser){
+        String userCode =  studentLoginService.login(studentUser.getUsername(), studentUser.getPassword());
         boolean loginState = (userCode!=null);
         if(loginState){
             String token = JwtUtil.createJWT(userCode);
@@ -37,15 +31,15 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    public Result register(@RequestBody User user){
-        boolean registerState = loginService.register(user.getUsername(),user.getPassword());
+    public Result register(@RequestBody StudentUser studentUser){
+        boolean registerState = studentLoginService.register(studentUser.getUsername(), studentUser.getPassword());
         return registerState ? Result.SUCCESS.setMessage("注册成功") : Result.FAIL.setMessage("注册失败");
     }
 
 
     @GetMapping("/usernameUsable/{username}")
     public Result usernameUsable(@PathVariable String username){
-        boolean usable = loginService.usernameUsable(username);
+        boolean usable = studentLoginService.usernameUsable(username);
         return usable ? Result.SUCCESS.setMessage("该用户名可用") : Result.FAIL.setMessage("用户名不可用");
     }
 }

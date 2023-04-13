@@ -1,6 +1,7 @@
 package admin.service;
 
 import admin.domain.Score;
+import admin.service.dataService.ScoreService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

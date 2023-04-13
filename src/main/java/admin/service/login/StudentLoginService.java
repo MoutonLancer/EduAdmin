@@ -1,9 +1,10 @@
-package admin.service.functionService;
+package admin.service.login;
 
 import admin.Utils.Exception.RegisterRollbackException;
 import admin.Utils.MyUtils;
-import admin.domain.User;
-import admin.service.UserService;
+import admin.domain.StudentUser;
+import admin.domain.TeacherUser;
+import admin.service.dataService.StudentUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,24 +13,24 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 @Service
-public class LoginService {
+public class StudentLoginService {
     @Autowired
-    UserService userService;
+    StudentUserService studentUserService;
 
     public String login(String username, String password){
-        User user;
+        StudentUser studentUser;
         if (MyUtils.AllParamIsMeaningful(true,username,password)) {
-            user = userService.getOne(new QueryWrapper<User>()
+            studentUser = studentUserService.getOne(new QueryWrapper<StudentUser>()
                     .eq("username", username)
                     .eq("password", password));
-            return  user !=null? user.getCode():null;
+            return  studentUser !=null? studentUser.getCode():null;
         }
         return null;
     }
 
     public boolean usernameUsable(String username){
         if(MyUtils.AllParamIsMeaningful(true,username))
-            return 0 == userService.getByInfo(null, username,null,null,null).getTotal();
+            return 0 == studentUserService.getByInfo(null, username,null,null).getTotal();
         return false;
     }
 
@@ -38,14 +39,14 @@ public class LoginService {
         boolean okSave = false, okRegister = false;
         if (MyUtils.AllParamIsMeaningful(true,username,password))
             if (usernameUsable(username))
-                okSave =  userService.save(new User(null, username, password,null,null, new Date()));
+                okSave =  studentUserService.save(new StudentUser(null, username, password,null, new Date()));
 
         if (okSave){
-            User dbUser = userService.getOne(new QueryWrapper<User>()
+            StudentUser dbStudentUser = studentUserService.getOne(new QueryWrapper<StudentUser>()
                     .eq("username",username)
                     .eq("password",password));
-            dbUser.setCode(MyUtils.codeGenerate(dbUser.getId()));
-            okRegister = userService.updateById(dbUser);
+            dbStudentUser.setCode(MyUtils.codeGenerate(dbStudentUser.getId()));
+            okRegister = studentUserService.updateById(dbStudentUser);
         }
         return okRegister;
     }

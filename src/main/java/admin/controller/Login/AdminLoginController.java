@@ -1,19 +1,16 @@
-package admin.controller;
+package admin.controller.Login;
 
 import admin.Utils.JwtUtil;
 import admin.domain.Admin;
-import admin.domain.User;
 import admin.domain.protocol.Result;
-import admin.service.AdminService;
-import admin.service.UserService;
-import admin.service.functionService.AdminLoginService;
-import admin.service.functionService.LoginService;
+import admin.service.dataService.AdminService;
+import admin.service.login.AdminLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @ResponseBody
-@RequestMapping("/adminFun")
+@RequestMapping("/adminLoginFun")
 public class AdminLoginController {
     @Autowired
     AdminLoginService adminLoginService;

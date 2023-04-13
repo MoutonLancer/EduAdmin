@@ -1,8 +1,8 @@
-package admin.service.functionService;
+package admin.service.login;
 
 import admin.Utils.MyUtils;
 import admin.domain.Admin;
-import admin.service.AdminService;
+import admin.service.dataService.AdminService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

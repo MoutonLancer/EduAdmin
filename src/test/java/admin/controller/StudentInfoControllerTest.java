@@ -1,6 +1,7 @@
 package admin.controller;
 
 
+import admin.controller.dataController.StudentInfoController;
 import admin.domain.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

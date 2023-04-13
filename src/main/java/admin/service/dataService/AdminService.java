@@ -1,48 +1,43 @@
-package admin.service;
+package admin.service.dataService;
 
 import admin.Utils.MyUtils;
 import admin.dao.AdminDao;
-import admin.dao.UserDao;
 import admin.domain.Admin;
-import admin.domain.Score;
-import admin.domain.User;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
-public class UserService extends ServiceImpl<UserDao, User> implements IService<User> {
+public class AdminService extends ServiceImpl<AdminDao, Admin> implements IService<Admin> {
     @Autowired
-    private UserDao userDao;
+    private AdminDao adminDao;
     private final String primaryKey = "id";
-    private final Page<User> page = new Page<>(1, 10);
+    private final Page<Admin> page = new Page<>(1, 10);
 
 
-    public Page<User> getPage(int currentPage, int pageSize) {
+    public Page<Admin> getPage(int currentPage, int pageSize) {
         this.page.setCurrent(currentPage);
         this.page.setSize(pageSize);
-        return userDao.selectPage(page, null);
+        return adminDao.selectPage(page, null);
     }
-    public Page<User> getPage() {
-        return userDao.selectPage(page, null);
+    public Page<Admin> getPage() {
+        return adminDao.selectPage(page, null);
     }
-    public List<User> getAll(){
-        return userDao.selectList(null);
+    public List<Admin> getAll(){
+        return adminDao.selectList(null);
     }
-    public Page<User> getByInfo(Integer id, String username,Boolean position, String password, String code){
-        if (MyUtils.AllParamIsMeaningful(false,id, username, position, password, code))
+    public Page<Admin> getByInfo(Integer id, String username, String password, String code){
+        if (MyUtils.AllParamIsMeaningful(false,id, username, password, code))
             return getPage();
-        QueryWrapper<User> w = new QueryWrapper<User>()
+        QueryWrapper<Admin> w = new QueryWrapper<Admin>()
                 .eq( MyUtils.AllParamIsMeaningful(true, id),       "id",       id)
                 .eq( MyUtils.AllParamIsMeaningful(true, username), "username", username)
                 .eq( MyUtils.AllParamIsMeaningful(true, password), "password", password)
-                .eq( MyUtils.AllParamIsMeaningful(true, position), "position", position)
                 .eq( MyUtils.AllParamIsMeaningful(true, code),     "code",     code);
-        return userDao.selectPage(page,w);
+        return adminDao.selectPage(page,w);
     }
 }

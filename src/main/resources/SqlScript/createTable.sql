@@ -8,11 +8,19 @@ create table edu_admin(
     code varchar(20) NOT NULL default  0,
     register_time datetime
 );
-create table edu_user(
+#学生账号表
+create table edu_studentuser(
     id tinyint primary key auto_increment,
     username varchar(20) UNIQUE NOT NULL ,
     password varchar(20) NOT NULL ,
-    position boolean NULL DEFAULT false,
+    code varchar(20) NOT NULL default  0,
+    register_time datetime
+);
+#教师账号表
+create table edu_teacheruser(
+    id tinyint primary key auto_increment,
+    username varchar(20) UNIQUE NOT NULL ,
+    password varchar(20) NOT NULL ,
     code varchar(20) NOT NULL default  0,
     register_time datetime
 );

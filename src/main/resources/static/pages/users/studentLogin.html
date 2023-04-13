@@ -2,14 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>登录</title>
-        <link rel="stylesheet" href="../css/loginStyle.css" type="text/css" charset="UTF-8">
-        <script src="../js/vue.js"></script>
-        <script src="../js/axios-0.18.0.js"></script>
+        <title>学生登录入口</title>
+        <link rel="stylesheet" href="../../css/loginStyle.css" type="text/css" charset="UTF-8">
+        <script src="../../js/vue.js"></script>
+        <script src="../../js/axios-0.18.0.js"></script>
     </head>
     <body>
         <div id="app">
-            <h2>LOGIN</h2>
+            <h2>sLOGIN</h2>
             <div>
                 <span id="placeholder">*</span>
                 <span id="Msg" v-show="showMessage">{{r.message}}</span>
@@ -29,7 +29,7 @@
             <button @click="login">登录</button>
             <br>
             <span class="text">还没有账号？</span>
-            <a id="registered" href="../pages/registered.html">注册</a>
+            <a id="registered" href="../registered.html">注册</a>
         </div>
     </body>
 
@@ -44,20 +44,21 @@
                 r:{
                     code:null,
                     token:null,
-                    message:""
+                    message:''
                 },
-                showMessage:false
+                showMessage:false,
+                controllerPath: '/studentLoginFun'
             },
             methods:{
                 //获取accessToken
                 login(){
-                    axios.post("/adminFun/adminLogin",this.userInfo).then((res)=>{
+                    axios.post(this.controllerPath+'/login',this.userInfo).then((res)=>{
                         this.r.code = res.data.code;
                         this.r.token = res.data.data;
                         this.r.message = res.data.message;
                         if (this.r.code == 999){
                             localStorage.setItem('token', this.r.token);
-                            window.location.href="../pages/studentInfo.html";
+                            window.location.href='studentPage.html';
                         }
                         else
                             this.showMessage=true;

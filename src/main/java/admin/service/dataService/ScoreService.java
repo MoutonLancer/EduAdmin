@@ -1,4 +1,4 @@
-package admin.service;
+package admin.service.dataService;
 
 
 import admin.Utils.MyUtils;

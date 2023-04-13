@@ -1,6 +1,7 @@
 package admin.service;
 
 import admin.domain.Curriculum;
+import admin.service.dataService.CurriculumService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

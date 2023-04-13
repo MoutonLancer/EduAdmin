@@ -50,11 +50,14 @@ public class loginFilter implements Filter {
 
     private void doFilterStaticResource(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws ServletException, IOException {
         String uri = req.getRequestURI();
-        List<String> path = Arrays.asList(".html","/pages","/css","/image","/js","/plugins",".ico");
+        List<String> path = Arrays.asList("/pages","/css","/image","/js","/plugins",".ico");
         //放行白名单
         for (String p : path){
-            if(uri.contains(p))
+            if(uri.contains(p)){
                 filterChain.doFilter(req,resp);
+                break;
+            }
+
         }
     }
 
@@ -93,7 +96,7 @@ public class loginFilter implements Filter {
 
     private boolean isLoginFunction(HttpServletRequest req){
         String uri = req.getRequestURI();
-        if (uri.equals("/") || uri.contains("/userFun") || uri.contains("/adminFun"))
+        if (uri.equals("/") || uri.contains("LoginFun"))
             return true;
         return false;
     }
