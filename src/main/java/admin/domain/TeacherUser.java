@@ -13,7 +13,7 @@ public class TeacherUser {
     private Integer id;
     private String username;
     private String password;
-    private String code;
+    private String teacherId;
     private Date registerTime ;
 
 }

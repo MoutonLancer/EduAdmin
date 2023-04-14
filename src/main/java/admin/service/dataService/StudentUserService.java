@@ -31,14 +31,14 @@ public class StudentUserService extends ServiceImpl<StudentUserDao, StudentUser>
     public List<StudentUser> getAll(){
         return studentUserDao.selectList(null);
     }
-    public Page<StudentUser> getByInfo(Integer id, String username, String password, String code){
-        if (MyUtils.AllParamIsMeaningful(false,id, username, password, code))
+    public Page<StudentUser> getByInfo(Integer id, String username, String password, String studentId){
+        if (MyUtils.AllParamIsMeaningful(false,id, username, password, studentId))
             return getPage();
         QueryWrapper<StudentUser> w = new QueryWrapper<StudentUser>()
                 .eq( MyUtils.AllParamIsMeaningful(true, id),       "id",       id)
                 .eq( MyUtils.AllParamIsMeaningful(true, username), "username", username)
                 .eq( MyUtils.AllParamIsMeaningful(true, password), "password", password)
-                .eq( MyUtils.AllParamIsMeaningful(true, code),     "code",     code);
+                .eq( MyUtils.AllParamIsMeaningful(true, studentId),"student_id",studentId);
         return studentUserDao.selectPage(page,w);
     }
 }

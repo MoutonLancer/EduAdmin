@@ -29,7 +29,7 @@
             <button @click="login">登录</button>
             <br>
             <span class="text">还没有账号？</span>
-            <a id="registered" href="../registered.html">注册</a>
+            <a id="registered" href="./teacherRegistered.html">注册</a>
         </div>
     </body>
 
@@ -58,7 +58,7 @@
                         this.r.message = res.data.message;
                         if (this.r.code == 999){
                             localStorage.setItem('token', this.r.token);
-                            window.location.href="teacherPage.html";
+                            window.location.href="./teacherPage.html";
                         }
                         else
                             this.showMessage=true;

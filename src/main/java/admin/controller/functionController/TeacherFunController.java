@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @ResponseBody
-@RequestMapping("/students")
-public class StudentController {
+@RequestMapping("/teachers")
+public class TeacherFunController {
     @Autowired
     private HttpServletRequest request;
     @Autowired
@@ -27,19 +27,19 @@ public class StudentController {
 
     @GetMapping("/course")
     public Result getCourse(){
-        //响应对应的课程安排-学生上课
+        //响应对应的课程安排-教师授课
         return null;
     }
 
     @GetMapping("/leave")
     public Result getLeave(){
-        //响应请假记录
+        //响应请假记录-对应课程
         return null;
     }
 
     @GetMapping("/score")
     public Result getScore(){
-        //响应成绩信息
+        //响应成绩信息-对应课程
         return null;
     }
     @GetMapping("/curriculum")
@@ -50,19 +50,8 @@ public class StudentController {
 
     @PostMapping("/courseSelection")
     public Result courseSelection(){
-        //选课请求处理
+        //选课请求处理--批准
         return null;
     }
 
-    @PatchMapping("/undoCourseSelect")
-    public Result undoCourseSelect(){
-        //撤销选课申请
-        return null;
-    }
-
-    @PatchMapping("/undoLeave")
-    public Result undoLeave(){
-        //撤销未审批请假申请
-        return null;
-    }
 }

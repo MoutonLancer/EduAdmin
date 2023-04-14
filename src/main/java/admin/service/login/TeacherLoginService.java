@@ -22,7 +22,7 @@ public class TeacherLoginService {
             teacherUser = teacherUserService.getOne(new QueryWrapper<TeacherUser>()
                     .eq("username", username)
                     .eq("password", password));
-            return  teacherUser !=null? teacherUser.getCode():null;
+            return  teacherUser !=null? teacherUser.getTeacherId():null;
         }
         return null;
     }
@@ -44,7 +44,7 @@ public class TeacherLoginService {
             TeacherUser dbTeacherUser = teacherUserService.getOne(new QueryWrapper<TeacherUser>()
                     .eq("username",username)
                     .eq("password",password));
-            dbTeacherUser.setCode(MyUtils.codeGenerate(dbTeacherUser.getId()));
+            dbTeacherUser.setTeacherId(MyUtils.codeGenerate(true, dbTeacherUser.getId()));
             okRegister = teacherUserService.updateById(dbTeacherUser);
         }
         return okRegister;
