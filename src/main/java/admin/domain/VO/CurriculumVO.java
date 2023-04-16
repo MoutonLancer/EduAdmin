@@ -1,20 +1,19 @@
-package admin.domain;
+package admin.domain.VO;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import admin.domain.Curriculum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@TableName("edu_curriculum")
-public class Curriculum {
+public class CurriculumVO extends BaseVO<Curriculum,CurriculumVO>{
     private Integer id;
     private String courseId;
     private String courseName;
     private String timeSlot;
     private String dayOfWeek;
     private String address;
-    private String teacherId;
-    private Integer credits;
+
 }

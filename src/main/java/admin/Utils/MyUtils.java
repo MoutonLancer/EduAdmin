@@ -1,10 +1,12 @@
 package admin.Utils;
 
 import admin.Utils.Exception.UtilsCreateException;
-
+import admin.domain.VO.BaseVO;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MyUtils {
 
@@ -131,5 +133,12 @@ public class MyUtils {
         if (str == null)
             return false;
         return str.equals("null") || str.equals("NULL") || str.equals("Null");
+    }
+
+    public static < PO, VO extends BaseVO<PO,VO>>  List<VO> toVoList(List<PO> poList, Class<VO> voClass) {
+        return poList.stream().map(po -> {
+            try {return voClass.newInstance().toVO(po);}
+            catch (Exception e) {e.printStackTrace();return null;}
+        }).collect(Collectors.toList());
     }
 }

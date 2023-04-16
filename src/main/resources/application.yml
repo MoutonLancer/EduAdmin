@@ -26,7 +26,9 @@ logging:
       max-file-size: 4KB
       file-name-pattern: ./logs/server.%d{yyyy-MM-dd}.%i.log
 
+config:
+  filter:
+    loginFilterSwitch: true  #登录校验过滤器
 
-filter:
-  loginFilterSwitch: true  #登录校验过滤器
+
 

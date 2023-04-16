@@ -19,7 +19,7 @@ import java.util.*;
 @WebFilter(urlPatterns = "/*" )
 public class loginFilter implements Filter {
 
-    @Value("${filter.loginFilterSwitch}")
+    @Value("${config.filter.loginFilterSwitch}")
     private boolean filterSwitch;
 
     @Override

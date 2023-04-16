@@ -4,7 +4,6 @@ package admin.service.dataService;
 import admin.Utils.MyUtils;
 import admin.dao.CurriculumDao;
 import admin.domain.Curriculum;
-import admin.domain.Score;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -33,19 +32,21 @@ public class CurriculumService extends ServiceImpl<CurriculumDao, Curriculum> im
     public List<Curriculum> getAll(){
         return curriculumDao.selectList(null);
     }
-    public List<Curriculum> getByInfo(String courseId, String courseName, String teacherId, String address){
-        if (MyUtils.AllParamIsMeaningful(false, courseId,courseName,address,teacherId))
+    public List<Curriculum> getByInfo(String courseId, String courseName, String dayOfWeek, String timeSlot, String teacherId, String address){
+        if (MyUtils.AllParamIsMeaningful(false, courseId,courseName,dayOfWeek,timeSlot,address,teacherId))
             return getPage().getRecords();
         QueryWrapper<Curriculum> wrapper = new QueryWrapper<Curriculum>()
                 .eq( MyUtils.AllParamIsMeaningful(true, courseId),"course_id", courseId)
                 .eq( MyUtils.AllParamIsMeaningful(true, courseName),"course_name", courseName)
+                .eq( MyUtils.AllParamIsMeaningful(true, dayOfWeek),"day_of_week", dayOfWeek)
+                .eq( MyUtils.AllParamIsMeaningful(true, timeSlot),"time_slot", timeSlot)
                 .eq( MyUtils.AllParamIsMeaningful(true, teacherId), "teacher_id", teacherId)
                 .eq( MyUtils.AllParamIsMeaningful(true, address),"address", address);
         return curriculumDao.selectList(wrapper);
     }
 
     public Boolean curriculumIsExist(String courseId) {
-        return 0 != this.getByInfo(courseId, null, null, null).size();
+        return 0 != this.getByInfo(courseId, null,null,null, null, null).size();
     }
 
     public Curriculum getByPrimaryKey(Integer key){

@@ -36,6 +36,8 @@ create table edu_curriculum(
     id tinyint primary key auto_increment,
     course_id varchar(20) NOT NULL,
     course_name varchar(20) NOT NULL,
+    time_slot enum('1', '2', '3', '4', '5', '6', '7', '8', '9', '10') NOT NULL ,
+    day_of_week enum('1', '2', '3', '4', '5', '6', '7')NOT NULL ,
     address varchar(20),
     teacher_id varchar(20) NOT NULL,
     credits tinyint NOT NULL,
@@ -80,21 +82,21 @@ create table edu_leave(
 );
 #学生账号表
 create table edu_studentuser(
-                                id tinyint primary key auto_increment,
-                                username varchar(20) UNIQUE NOT NULL ,
-                                password varchar(20) NOT NULL ,
-                                student_id varchar(20) NOT NULL default 'S0',
-                                register_time datetime,
-                                CONSTRAINT fk3_studentInfo__studentId FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id) ON UPDATE CASCADE ON DELETE CASCADE
+    id tinyint primary key auto_increment,
+    username varchar(20) UNIQUE NOT NULL ,
+    password varchar(20) NOT NULL ,
+    student_id varchar(20) NOT NULL default 'S0',
+    register_time datetime,
+    CONSTRAINT fk3_studentInfo__studentId FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 #教师账号表
 create table edu_teacheruser(
-                                id tinyint primary key auto_increment,
-                                username varchar(20) UNIQUE NOT NULL ,
-                                password varchar(20) NOT NULL ,
-                                teacher_id varchar(20) NOT NULL default  0,
-                                register_time datetime,
-                                CONSTRAINT fk2_teacherInfo__teacherId FOREIGN KEY(teacher_id) REFERENCES edu_teacherinfo(teacher_id) ON UPDATE CASCADE ON DELETE CASCADE
+    id tinyint primary key auto_increment,
+    username varchar(20) UNIQUE NOT NULL ,
+    password varchar(20) NOT NULL ,
+    teacher_id varchar(20) NOT NULL default  0,
+    register_time datetime,
+    CONSTRAINT fk2_teacherInfo__teacherId FOREIGN KEY(teacher_id) REFERENCES edu_teacherinfo(teacher_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 

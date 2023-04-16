@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class CurriculumServiceTest {
     @Autowired
     CurriculumService curriculumService;
-    Curriculum testData = new Curriculum(66, "8888","英语",null,"4",8);
+    Curriculum testData = new Curriculum(66, "8888","英语","2","5",null,"4",8);
 
 
     @Test
@@ -26,8 +26,8 @@ public class CurriculumServiceTest {
     }
     @Test
     public void getByInfoTest(){
-        curriculumService.getByInfo("7077",null,"q",null);
-        curriculumService.getByInfo(null,"8088",null,null);
+        curriculumService.getByInfo("7077",null,"2","5","q",null);
+        curriculumService.getByInfo(null,"8088","1","4",null,null);
     }
     @Test
     public void getByPrimaryKeyTest(){

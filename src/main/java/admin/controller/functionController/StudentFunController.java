@@ -1,15 +1,17 @@
 package admin.controller.functionController;
 
-import admin.domain.Leave;
 import admin.domain.Score;
-import admin.domain.Student;
+import admin.domain.VO.CurriculumVO;
 import admin.domain.pack.StringPack;
 import admin.domain.protocol.Result;
-import admin.service.dataService.ScoreService;
+import admin.domain.VO.LeaveVO;
+import admin.domain.VO.StudentVO;
 import admin.service.functionService.StudentFunService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @ResponseBody
@@ -18,22 +20,22 @@ public class StudentFunController {
     @Autowired
     StudentFunService studentFunService;
 
+
+    //响应用户身份，学号,姓名,专业,班级
     @GetMapping("/info")
-    public Result getUserInfo(){
-        //响应用户身份，code,姓名
-        return null;
+    public Result getStudentInfo(StringPack codePack){
+        String code = codePack.getValue();
+        StudentVO studentVO = studentFunService.getStudentInfo(code);
+        if (studentVO == null)
+            return Result.EMPTY;
+        return new Result<>().okResult(studentVO);
     }
 
-    @GetMapping("/course")
-    public Result getCourse(){
-        //响应对应的课程安排-学生上课
-        return null;
-    }
     //响应请假记录
     @GetMapping("/leave/{currentPage}/{pageSize}")
     public Result getLeavePage(StringPack codePack, @PathVariable int currentPage, @PathVariable int pageSize){
         String code = codePack.getValue();
-        Page<Leave> page = studentFunService.getLeavePage(code, currentPage, pageSize);
+        Page<LeaveVO> page = studentFunService.getLeavePage(code, currentPage, pageSize);
         if (currentPage > page.getPages())//查询的页码大于总页数，重新查询-最后一页
             page = studentFunService.getLeavePage(code, (int)page.getPages(), pageSize);
         if(page.getRecords().isEmpty())
@@ -53,26 +55,38 @@ public class StudentFunController {
             return Result.EMPTY;
         return new Result<>().okResult(page);
     }
+
+    //响应对应的课程安排-学生上课
+    @GetMapping("/course")
+    public Result getCourse(StringPack codePack){
+        String code = codePack.getValue();
+        List<CurriculumVO> courseTable = studentFunService.getCourse(code);
+        if(courseTable.isEmpty())
+            return Result.EMPTY;
+        return new Result<>().okResult(courseTable);
+    }
+
+
     @GetMapping("/curriculum")
-    public Result getCurriculum(){
+    public Result getCurriculum(StringPack codePack){
         //响应课程列表——以供选课
         return null;
     }
 
     @PostMapping("/courseSelection")
-    public Result courseSelection(){
+    public Result courseSelection(StringPack codePack){
         //选课请求处理
         return null;
     }
 
     @PatchMapping("/undoCourseSelect")
-    public Result undoCourseSelect(){
+    public Result undoCourseSelect(StringPack codePack){
         //撤销选课申请
         return null;
     }
 
     @PatchMapping("/undoLeave")
-    public Result undoLeave(){
+    public Result undoLeave(StringPack codePack){
         //撤销未审批请假申请
         return null;
     }

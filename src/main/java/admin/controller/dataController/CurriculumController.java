@@ -33,15 +33,20 @@ public class CurriculumController {
         return new Result<>().okResult(curriculum);
     }
 
-    @GetMapping("_{courseId}/_{courseName}/_{teacherId}/_{address}")
-    public Result getByInfo(@PathVariable String courseId, @PathVariable String courseName, @PathVariable String teacherId, @PathVariable String address){
-        List<Curriculum> curriculums = curriculumService.getByInfo(courseId,courseName,teacherId,address);
+    @GetMapping("/_{courseId}/_{courseName}/_{teacherId}/_{dayOfWeek}/_{timeSlot}/_{address}")
+    public Result getByInfo(@PathVariable String courseId,
+                            @PathVariable String courseName,
+                            @PathVariable String teacherId,
+                            @PathVariable String dayOfWeek,
+                            @PathVariable String timeSlot,
+                            @PathVariable String address){
+        List<Curriculum> curriculums = curriculumService.getByInfo(courseId,courseName,dayOfWeek,timeSlot,teacherId,address);
         if(curriculums.isEmpty())
             return Result.EMPTY;
         return new Result<>().okResult(curriculums);
     }
 
-    @GetMapping("{currentPage}/{pageSize}")
+    @GetMapping("/{currentPage}/{pageSize}")
     public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize){
         Page<Curriculum> page = curriculumService.getPage(currentPage, pageSize);
         if (currentPage > page.getPages())//查询的页码大于总页数，重新查询-最后一页
