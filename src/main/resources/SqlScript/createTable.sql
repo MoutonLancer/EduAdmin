@@ -86,8 +86,8 @@ create table edu_studentuser(
     username varchar(20) UNIQUE NOT NULL ,
     password varchar(20) NOT NULL ,
     student_id varchar(20) NOT NULL default 'S0',
-    register_time datetime,
-    CONSTRAINT fk3_studentInfo__studentId FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id) ON UPDATE CASCADE ON DELETE CASCADE
+    register_time datetime
+#     CONSTRAINT fk3_studentInfo__studentId FOREIGN KEY(student_id) REFERENCES edu_studentinfo(student_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 #教师账号表
 create table edu_teacheruser(
@@ -95,8 +95,8 @@ create table edu_teacheruser(
     username varchar(20) UNIQUE NOT NULL ,
     password varchar(20) NOT NULL ,
     teacher_id varchar(20) NOT NULL default  0,
-    register_time datetime,
-    CONSTRAINT fk2_teacherInfo__teacherId FOREIGN KEY(teacher_id) REFERENCES edu_teacherinfo(teacher_id) ON UPDATE CASCADE ON DELETE CASCADE
+    register_time datetime
+#     CONSTRAINT fk2_teacherInfo__teacherId FOREIGN KEY(teacher_id) REFERENCES edu_teacherinfo(teacher_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 

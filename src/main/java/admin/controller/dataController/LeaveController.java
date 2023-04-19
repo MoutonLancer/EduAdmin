@@ -83,7 +83,7 @@ public class LeaveController {
 
     @PatchMapping
     public Result updateState(@RequestBody Map<String,Object> map){
-        if (leaveService.updateState((Integer) map.get("id"),(String) map.get("state")))
+        if (leaveService.updateState((Integer) map.get("id"),(String) map.get("state"),null))
             return Result.SUCCESS.setMessage("更新成功");
         return Result.FAIL.setMessage("更新失败");
 

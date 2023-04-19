@@ -17,7 +17,7 @@ public class AdminLoginController {
     @Autowired
     AdminService adminService;
 
-    @PostMapping("/adminLogin")
+    @PostMapping("/login")
     public Result adminLogin(@RequestBody Admin admin){
         Integer adminId =  adminLoginService.login(admin.getUsername(), admin.getPassword());
         boolean loginState = (adminId!=null);
@@ -30,13 +30,13 @@ public class AdminLoginController {
     }
 
     //管理员注册
-    @PostMapping("/adminRegister")
+    @PostMapping("/register")
     public Result register(@RequestBody Admin admin){
         boolean registerState = adminLoginService.register(admin.getUsername(), admin.getPassword());
         return registerState ? Result.SUCCESS.setMessage("注册成功") : Result.FAIL.setMessage("注册失败");
     }
     //管理员用户名可用性校验
-    @GetMapping("/adminUsernameUsable/{username}")
+    @GetMapping("/usernameUsable/{username}")
     public Result usernameUsable(@PathVariable String username){
         boolean usable = adminLoginService.usernameUsable(username);
         return usable ? Result.SUCCESS.setMessage("该用户名可用") : Result.FAIL.setMessage("用户名不可用");

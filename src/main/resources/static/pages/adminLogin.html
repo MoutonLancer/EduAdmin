@@ -29,7 +29,7 @@
             <button @click="login">登录</button>
             <br>
             <span class="text">还没有账号？</span>
-            <a id="registered" href="../pages/registered.html">注册</a>
+            <a id="registered" href="../pages/adminRegistered.html">注册</a>
         </div>
     </body>
 
@@ -46,12 +46,16 @@
                     token:null,
                     message:""
                 },
-                showMessage:false
+                showMessage:false,
+                controllerPath:'/adminLoginFun'
+            },
+            created() {
+                window.alert("管理员账号可随意注册\n测试账号：root\n密码：pass\n学生端URL为http://mouton.icu:8989/pages/users/studentLogin.html");
             },
             methods:{
                 //获取accessToken
                 login(){
-                    axios.post("/adminLoginFun/adminLogin",this.userInfo).then((res)=>{
+                    axios.post(this.controllerPath+"/login",this.userInfo).then((res)=>{
                         this.r.code = res.data.code;
                         this.r.token = res.data.data;
                         this.r.message = res.data.message;

@@ -29,7 +29,7 @@
     <button @click="register()">注册</button>
     <br>
     <span class="text">已经有账号？</span>
-    <a id="registered" href="../pages/login.html">登录</a>
+    <a id="registered" href="../pages/adminLogin.html">登录</a>
 </div>
 </body>
 
@@ -47,7 +47,7 @@
                 message:""
             },
             showMessage:false,
-            controllerPath:'/studentLoginFun',
+            controllerPath:'/adminLoginFun',
             messageColor:''
         },
         methods:{
@@ -60,7 +60,7 @@
                     switch (this.r.code){
                         case 204:{
                             window.alert(this.r.message);
-                            window.location.href = "../pages/login.html";
+                            window.location.href = "../pages/adminlogin.html";
                         };
                         case 422:{
                             this.messageColor = "color:red";

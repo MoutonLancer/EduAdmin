@@ -37,7 +37,7 @@ public class ProjectExceptionAdvice {
     public Result doDataIntegrityViolationException(DataIntegrityViolationException ex){
         log.warn(ex.getMessage(),ex);
         ex.printStackTrace();
-        return Result.FAIL.setMessage("数据库操作失败");
+        return Result.FAIL.setMessage("必要信息不存在，操作失败");
     }
     @ExceptionHandler
     public Result NumberFormatException(NumberFormatException ex){

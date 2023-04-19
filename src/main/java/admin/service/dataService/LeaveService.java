@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -62,17 +63,26 @@ public class LeaveService extends ServiceImpl<LeaveDao, Leave> implements IServi
 
     public boolean update(Leave leave){
         if (leave==null) return  false;
+        if (leave.getState().equals("0"))
+            leave.setApprover("");
         QueryWrapper<Leave> wrapper = new QueryWrapper<Leave>()
                 .eq(primaryKey, leave.getId());
         return 1 == leaveDao.update(leave, wrapper);
     }
 
-    public boolean updateState(Integer id, String state){
+    @Transactional
+    public boolean updateState(Integer id, String state , String approver){
+        if (approver == null)
+            approver = "admin";
         if (id == null || state == null) return  false;
         UpdateWrapper<Leave> updateWrapper = new UpdateWrapper<Leave>()
                 .eq(primaryKey, id)
-                .set("state", state);
+                .set("state", state)
+                .set(state.equals("0"),"approver","")
+                .set(!state.equals("0"),"approver",approver);
+
         return 1 == leaveDao.update(null,updateWrapper);
+
     }
 
 }
