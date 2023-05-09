@@ -1,4 +1,4 @@
-package admin.domain.pack;
+package admin.model.pack;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

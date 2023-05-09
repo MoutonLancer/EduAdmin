@@ -2,9 +2,8 @@ package admin.controller;
 
 
 import admin.controller.functionController.StudentFunController;
-import admin.domain.Student;
-import admin.domain.pack.StringPack;
-import admin.domain.protocol.Result;
+import admin.model.pack.StringPack;
+import admin.model.protocol.Result;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

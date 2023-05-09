@@ -1,7 +1,7 @@
 package admin.controller.dataController;
 
-import admin.domain.Curriculum;
-import admin.domain.protocol.Result;
+import admin.model.PO.Curriculum;
+import admin.model.protocol.Result;
 import admin.service.dataService.CurriculumService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;

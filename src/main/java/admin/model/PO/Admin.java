@@ -1,4 +1,4 @@
-package admin.domain;
+package admin.model.PO;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -8,12 +8,12 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@TableName("edu_studentuser")
-public class StudentUser {
+@TableName("edu_admin")
+public class Admin {
     private Integer id;
     private String username;
     private String password;
-    private String studentId;
+    private String code;
     private Date registerTime ;
 
 }

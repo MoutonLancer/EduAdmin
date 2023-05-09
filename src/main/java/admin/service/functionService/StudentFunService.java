@@ -4,10 +4,10 @@ import admin.Utils.MyUtils;
 import admin.dao.LeaveDao;
 import admin.dao.ScoreDao;
 import admin.dao.StudentUserDao;
-import admin.domain.*;
-import admin.domain.VO.CurriculumVO;
-import admin.domain.VO.LeaveVO;
-import admin.domain.VO.StudentVO;
+import admin.model.PO.*;
+import admin.model.VO.CurriculumVO;
+import admin.model.VO.LeaveVO;
+import admin.model.VO.StudentVO;
 import admin.service.dataService.CourseService;
 import admin.service.dataService.CurriculumService;
 import admin.service.dataService.StudentInfoService;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service

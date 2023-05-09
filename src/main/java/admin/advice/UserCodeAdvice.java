@@ -1,7 +1,7 @@
 package admin.advice;
 
 import admin.Utils.JwtUtil;
-import admin.domain.pack.StringPack;
+import admin.model.pack.StringPack;
 import io.jsonwebtoken.Claims;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;

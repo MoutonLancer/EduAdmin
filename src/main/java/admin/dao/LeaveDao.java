@@ -1,6 +1,6 @@
 package admin.dao;
 
-import admin.domain.Leave;
+import admin.model.PO.Leave;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

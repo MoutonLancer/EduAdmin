@@ -3,8 +3,7 @@ package admin.service.dataService;
 
 import admin.Utils.MyUtils;
 import admin.dao.CourseDao;
-import admin.domain.Course;
-import admin.domain.Score;
+import admin.model.PO.Course;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

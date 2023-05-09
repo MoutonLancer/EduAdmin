@@ -1,9 +1,9 @@
 package admin.dao;
 
-import admin.domain.Curriculum;
-import admin.domain.Score;
-import admin.domain.Student;
-import admin.domain.Teacher;
+import admin.model.PO.Curriculum;
+import admin.model.PO.Score;
+import admin.model.PO.Student;
+import admin.model.PO.Teacher;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

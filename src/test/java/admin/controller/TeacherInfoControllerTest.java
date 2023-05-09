@@ -2,7 +2,7 @@ package admin.controller;
 
 
 import admin.controller.dataController.TeacherInfoController;
-import admin.domain.Teacher;
+import admin.model.PO.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

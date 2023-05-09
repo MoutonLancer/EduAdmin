@@ -3,7 +3,7 @@ package admin.service.dataService;
 
 import admin.Utils.MyUtils;
 import admin.dao.LeaveDao;
-import admin.domain.Leave;
+import admin.model.PO.Leave;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

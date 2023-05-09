@@ -1,7 +1,7 @@
 package admin.controller.dataController;
 
-import admin.domain.Student;
-import admin.domain.protocol.Result;
+import admin.model.PO.Student;
+import admin.model.protocol.Result;
 import admin.service.dataService.StudentInfoService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;

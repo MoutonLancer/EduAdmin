@@ -1,19 +1,17 @@
-package admin.domain;
+package admin.model.VO;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import admin.model.PO.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@TableName("edu_studentinfo")
-public class Student {
+public class StudentVO extends BaseVO<Student,StudentVO>{
     private String studentId;
     private String studentName;
     private String department;
     private String subject;
     private String clas;
-    private String number;
-    private String address;
-    private String birthday;
 }

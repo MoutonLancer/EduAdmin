@@ -1,7 +1,7 @@
 package admin.controller.dataController;
 
-import admin.domain.Score;
-import admin.domain.protocol.Result;
+import admin.model.PO.Score;
+import admin.model.protocol.Result;
 import admin.service.dataService.CourseService;
 import admin.service.dataService.ScoreService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

@@ -1,7 +1,7 @@
 package admin.controller.dataController;
 
-import admin.domain.Leave;
-import admin.domain.protocol.Result;
+import admin.model.PO.Leave;
+import admin.model.protocol.Result;
 import admin.service.dataService.LeaveService;
 import admin.service.dataService.StudentInfoService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

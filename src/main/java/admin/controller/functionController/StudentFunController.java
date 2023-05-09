@@ -1,11 +1,11 @@
 package admin.controller.functionController;
 
-import admin.domain.Score;
-import admin.domain.VO.CurriculumVO;
-import admin.domain.pack.StringPack;
-import admin.domain.protocol.Result;
-import admin.domain.VO.LeaveVO;
-import admin.domain.VO.StudentVO;
+import admin.model.PO.Score;
+import admin.model.VO.CurriculumVO;
+import admin.model.pack.StringPack;
+import admin.model.protocol.Result;
+import admin.model.VO.LeaveVO;
+import admin.model.VO.StudentVO;
 import admin.service.functionService.StudentFunService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;

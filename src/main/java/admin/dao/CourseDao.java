@@ -1,6 +1,6 @@
 package admin.dao;
 
-import admin.domain.Course;
+import admin.model.PO.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

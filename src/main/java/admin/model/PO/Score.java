@@ -1,9 +1,8 @@
-package admin.domain;
+package admin.model.PO;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.context.annotation.Primary;
 
 @Data
 @AllArgsConstructor

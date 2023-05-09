@@ -1,4 +1,4 @@
-package admin.domain.VO;
+package admin.model.VO;
 
 import org.springframework.beans.BeanUtils;
 

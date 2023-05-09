@@ -1,6 +1,6 @@
 package admin.service;
 
-import admin.domain.Score;
+import admin.model.PO.Score;
 import admin.service.dataService.ScoreService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;

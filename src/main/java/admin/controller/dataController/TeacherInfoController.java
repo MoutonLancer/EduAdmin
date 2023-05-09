@@ -1,7 +1,7 @@
 package admin.controller.dataController;
 
-import admin.domain.Teacher;
-import admin.domain.protocol.Result;
+import admin.model.PO.Teacher;
+import admin.model.protocol.Result;
 import admin.service.dataService.TeacherInfoService;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

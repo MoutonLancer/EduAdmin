@@ -2,7 +2,7 @@ package admin.service.dataService;
 
 import admin.Utils.MyUtils;
 import admin.dao.StudentUserDao;
-import admin.domain.StudentUser;
+import admin.model.PO.StudentUser;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;

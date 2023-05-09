@@ -2,7 +2,7 @@ package admin.service.login;
 
 import admin.Utils.Exception.RegisterRollbackException;
 import admin.Utils.MyUtils;
-import admin.domain.TeacherUser;
+import admin.model.PO.TeacherUser;
 import admin.service.dataService.TeacherUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package admin.service.login;
 
 import admin.Utils.MyUtils;
-import admin.domain.Admin;
+import admin.model.PO.Admin;
 import admin.service.dataService.AdminService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package admin.service;
 
-import admin.domain.Student;
+import admin.model.PO.Student;
 import admin.service.dataService.StudentInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,8 +3,7 @@ package admin.service.dataService;
 
 import admin.Utils.MyUtils;
 import admin.dao.ScoreDao;
-import admin.domain.Score;
-import admin.domain.Teacher;
+import admin.model.PO.Score;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -37,10 +36,10 @@ public class ScoreService extends ServiceImpl<ScoreDao, Score> implements IServi
         if (MyUtils.AllParamIsMeaningful(false, courseId,courseName,teacherId,studentId))
             return getPage().getRecords();
         QueryWrapper<Score> wrapper = new QueryWrapper<Score>()
-                .eq( MyUtils.AllParamIsMeaningful(true, courseId),"course_id", courseId)
-                .eq( MyUtils.AllParamIsMeaningful(true, courseName),"course_name", courseName)
-                .eq( MyUtils.AllParamIsMeaningful(true, teacherId),"teacher_id", teacherId)
-                .eq( MyUtils.AllParamIsMeaningful(true, studentId), "student_id", studentId);
+                .like( MyUtils.AllParamIsMeaningful(true, courseId),"course_id", courseId)
+                .like( MyUtils.AllParamIsMeaningful(true, courseName),"course_name", courseName)
+                .like( MyUtils.AllParamIsMeaningful(true, teacherId),"teacher_id", teacherId)
+                .like( MyUtils.AllParamIsMeaningful(true, studentId), "student_id", studentId);
         return scoreDao.selectList(wrapper);
     }
 

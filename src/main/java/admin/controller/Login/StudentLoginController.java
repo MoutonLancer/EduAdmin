@@ -1,9 +1,8 @@
 package admin.controller.Login;
 
 import admin.Utils.JwtUtil;
-import admin.domain.StudentUser;
-import admin.domain.TeacherUser;
-import admin.domain.protocol.Result;
+import admin.model.PO.StudentUser;
+import admin.model.protocol.Result;
 import admin.service.dataService.StudentUserService;
 import admin.service.login.StudentLoginService;
 import org.springframework.beans.factory.annotation.Autowired;

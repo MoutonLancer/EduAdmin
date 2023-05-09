@@ -1,6 +1,6 @@
 package admin.service;
 
-import admin.domain.Teacher;
+import admin.model.PO.Teacher;
 import admin.service.dataService.TeacherInfoService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;

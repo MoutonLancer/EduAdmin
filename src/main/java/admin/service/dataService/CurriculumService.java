@@ -3,7 +3,7 @@ package admin.service.dataService;
 
 import admin.Utils.MyUtils;
 import admin.dao.CurriculumDao;
-import admin.domain.Curriculum;
+import admin.model.PO.Curriculum;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;

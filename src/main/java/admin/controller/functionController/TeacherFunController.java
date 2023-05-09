@@ -1,6 +1,6 @@
 package admin.controller.functionController;
 
-import admin.domain.protocol.Result;
+import admin.model.protocol.Result;
 import admin.service.dataService.StudentInfoService;
 import admin.service.dataService.TeacherInfoService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package admin.filter;
 
 import admin.Utils.JwtUtil;
-import admin.domain.protocol.Result;
+import admin.model.protocol.Result;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
@@ -67,29 +67,26 @@ public class loginFilter implements Filter {
     }
 
     private void doFilterToken(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws ServletException, IOException {
-        {
-            //采用OutputStream而不是Writer的原因，Tomcat要求写入流一致，否则报错。而SpringBoot已经使用了OutputStream,故此处遵循一致
-            ServletOutputStream out;
+        //采用OutputStream而不是Writer的原因，Tomcat要求写入流一致，否则报错。而SpringBoot已经使用了OutputStream,故此处遵循一致
+        ServletOutputStream out;
+        String token = req.getHeader("Authorization");
+        //验证token是否存在
+        if (token == null) {
+            String noLogin = JSONObject.toJSONString(Result.NEED_TOKEN);
+            out = resp.getOutputStream();
+            out.print(noLogin);
+            out.close();
 
-            String token = req.getHeader("Authorization");
-            //验证token是否存在
-            if (token == null) {
-                String noLogin = JSONObject.toJSONString(Result.NEED_TOKEN);
+        }else {
+            //验证Token是否有效
+            if (JwtUtil.verifyJWT(token)) {
+                filterChain.doFilter(req, resp);
+            }
+            else {
+                String invalidLogin = JSONObject.toJSONString(Result.OVERDUE_TOKEN);
                 out = resp.getOutputStream();
-                out.print(noLogin);
+                out.print(invalidLogin);
                 out.close();
-
-            }else {
-                //验证Token是否有效
-                if (JwtUtil.verifyJWT(token)) {
-                    filterChain.doFilter(req, resp);
-                }
-                else {
-                    String invalidLogin = JSONObject.toJSONString(Result.OVERDUE_TOKEN);
-                    out = resp.getOutputStream();
-                    out.print(invalidLogin);
-                    out.close();
-                }
             }
         }
     }

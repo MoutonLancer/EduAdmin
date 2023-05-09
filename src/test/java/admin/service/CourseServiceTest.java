@@ -1,6 +1,6 @@
 package admin.service;
 
-import admin.domain.Course;
+import admin.model.PO.Course;
 import admin.service.dataService.CourseService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;

@@ -3,8 +3,7 @@ package admin.service.dataService;
 
 import admin.Utils.MyUtils;
 import admin.dao.StudentInfoDao;
-import admin.domain.Curriculum;
-import admin.domain.Student;
+import admin.model.PO.Student;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -37,11 +36,11 @@ public class StudentInfoService extends ServiceImpl<StudentInfoDao, Student> imp
         if (MyUtils.AllParamIsMeaningful(false,studentId, studentName, department, subject, clas))
             return getPage().getRecords();
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>()
-                .eq( MyUtils.AllParamIsMeaningful(true, studentId),"student_id", studentId)
-                .eq( MyUtils.AllParamIsMeaningful(true, studentName),"student_name", studentName)
-                .eq( MyUtils.AllParamIsMeaningful(true, department),"department", department)
-                .eq( MyUtils.AllParamIsMeaningful(true, subject),"subject", subject)
-                .eq( MyUtils.AllParamIsMeaningful(true, clas), "clas", clas);
+                .like( MyUtils.AllParamIsMeaningful(true, studentId),"student_id", studentId)
+                .like( MyUtils.AllParamIsMeaningful(true, studentName),"student_name", studentName)
+                .like( MyUtils.AllParamIsMeaningful(true, department),"department", department)
+                .like( MyUtils.AllParamIsMeaningful(true, subject),"subject", subject)
+                .like( MyUtils.AllParamIsMeaningful(true, clas), "clas", clas);
         return studentInfoDao.selectList(wrapper);
     }
 

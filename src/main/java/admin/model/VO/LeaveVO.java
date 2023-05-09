@@ -1,23 +1,18 @@
-package admin.domain;
+package admin.model.VO;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import admin.model.PO.Leave;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.Date;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@TableName("edu_leave")
-public class Leave {
+public class LeaveVO extends BaseVO<Leave,LeaveVO>{
     private Integer id;
-    private String studentId;
     private String reason;
     private String state;
     private Long startTime;
     private Long endTime ;
-    private Long applicationTime ;
-    private Long approvalTime ;
     private String approver;
-
 }

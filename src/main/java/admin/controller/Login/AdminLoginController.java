@@ -1,8 +1,8 @@
 package admin.controller.Login;
 
 import admin.Utils.JwtUtil;
-import admin.domain.Admin;
-import admin.domain.protocol.Result;
+import admin.model.PO.Admin;
+import admin.model.protocol.Result;
 import admin.service.dataService.AdminService;
 import admin.service.login.AdminLoginService;
 import org.springframework.beans.factory.annotation.Autowired;

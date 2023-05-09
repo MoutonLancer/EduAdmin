@@ -1,6 +1,6 @@
-package admin.domain.VO;
+package admin.model.VO;
 
-import admin.domain.Curriculum;
+import admin.model.PO.Curriculum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

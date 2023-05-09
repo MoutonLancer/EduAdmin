@@ -1,7 +1,7 @@
-package admin.config;
+package admin.advice;
 
 import admin.Utils.Exception.RegisterRollbackException;
-import admin.domain.protocol.Result;
+import admin.model.protocol.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
