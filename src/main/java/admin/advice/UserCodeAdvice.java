@@ -35,7 +35,7 @@ public class UserCodeAdvice {
 
     @Before("teacherPointCut()")
     public void setTeacherId(JoinPoint joinPoint) {
-        //从Token获取studentId
+        //从Token获取TeacherId
         String teacherId = getIdByRequest("userId");
         if (teacherId == null)
             return;

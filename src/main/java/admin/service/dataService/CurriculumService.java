@@ -54,6 +54,11 @@ public class CurriculumService extends ServiceImpl<CurriculumDao, Curriculum> im
                 .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
         return this.getOne(wrapper);
     }
+    public Curriculum getByCourseId(Integer courseId){
+        QueryWrapper<Curriculum> wrapper = new QueryWrapper<Curriculum>()
+                .eq(MyUtils.AllParamIsMeaningful(true, courseId), "course_id", courseId);
+        return this.getOne(wrapper);
+    }
 
     public boolean removeByPrimaryKey(Integer key){
         QueryWrapper<Curriculum> wrapper = new QueryWrapper<Curriculum>()

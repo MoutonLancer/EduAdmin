@@ -37,13 +37,13 @@ a {
 }
 
 /******************** ↓ ********************/
-.student-info {
+.info {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.student-info p {
+.info p {
   text-align: center;
   line-height: 1.5em;
 }
