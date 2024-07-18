@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -64,32 +65,46 @@ public class CourseService extends ServiceImpl<CourseDao, Course> implements ISe
         return this.getOne(wrapper);
     }
 
+    @Transactional
     public boolean removeByPrimaryKey(Integer key){
         QueryWrapper<Course> wrapper = new QueryWrapper<Course>()
                 .eq(MyUtils.AllParamIsMeaningful(true, key), primaryKey, key);
-        return courseDao.delete(wrapper)>0;
+        Course course = courseDao.selectOne(wrapper);
+        if (courseDao.delete(wrapper)>0){
+            return this.deleteScore(course.getCourseId(),course.getStudentId());
+        }
+        return false;
     }
 
+    @Transactional
     public boolean update(Course course){
         if (course==null) return  false;
-        if ("1".equals(course.getState()))
-            this.addScore(course.getId());
         QueryWrapper<Course> wrapper = new QueryWrapper<Course>()
                 .eq(primaryKey, course.getId());
+        if ("1".equals(course.getState()) && !this.getByPrimaryKey(course.getId()).getState().equals("1"))
+            this.addScore(course.getId());
+        if (!"1".equals(course.getState()) && this.getByPrimaryKey(course.getId()).getState().equals("1"))
+            this.deleteScore(course.getCourseId(),course.getStudentId());
         return courseDao.update(course, wrapper)>0;
     }
 
+    @Transactional
     public boolean updateState(Integer id, String state){
         if (id == null || state == null) return  false;
-        if ("1".equals(state))
+        Course dbCourse = this.getByPrimaryKey(id);
+        if ("1".equals(state) && !dbCourse.getState().equals("1"))
             this.addScore(id);
+        if (!"1".equals(state) && dbCourse.getState().equals("1"))
+            this.deleteScore(dbCourse.getCourseId(),dbCourse.getStudentId());
         UpdateWrapper<Course> updateWrapper = new UpdateWrapper<Course>()
                 .eq("id", id)
                 .set("state", state);
         return 1==courseDao.update(null,updateWrapper);
     }
 
+
     @Override
+    @Transactional
     public boolean save(Course course) {
         if ("1".equals(course.getState()))
             this.addScore(course.getId());
@@ -109,5 +124,10 @@ public class CourseService extends ServiceImpl<CourseDao, Course> implements ISe
                 -1
         );
         return scoreService.save(score);
+    }
+    //删除成绩记录
+    private boolean deleteScore(String courseId,String studentId){
+        Score score = scoreService.getByInfo(courseId, null, null, studentId).get(0);
+        return scoreService.removeByPrimaryKey(score.getId());
     }
 }

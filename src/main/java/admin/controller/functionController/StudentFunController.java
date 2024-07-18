@@ -1,16 +1,21 @@
 package admin.controller.functionController;
 
+import admin.Utils.DateFormatUtil;
+import admin.model.PO.Leave;
 import admin.model.PO.Score;
 import admin.model.VO.CurriculumVO;
 import admin.model.pack.StringPack;
 import admin.model.protocol.Result;
 import admin.model.VO.LeaveVO;
 import admin.model.VO.StudentVO;
+import admin.service.dataService.LeaveService;
 import admin.service.functionService.StudentFunService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,6 +24,8 @@ import java.util.List;
 public class StudentFunController {
     @Autowired
     StudentFunService studentFunService;
+    @Autowired
+    LeaveService leaveService;
 
 
     //响应用户身份，学号,姓名,专业,班级
@@ -71,6 +78,18 @@ public class StudentFunController {
     public Result getCurriculum(StringPack codePack){
         //响应课程列表——以供选课
         return null;
+    }
+
+    //请假申请处理
+    @PostMapping("/leave")
+    public Result addLeave(StringPack codePack, @RequestBody Leave leave){
+        leave.setStudentId(codePack.getValue());
+        leave.setApplicationTime((new Date()).getTime());
+        leave.setState("0");
+
+        if(leaveService.save(leave))
+            return Result.SUCCESS;
+        return Result.FAIL;
     }
 
     @PostMapping("/courseSelection")

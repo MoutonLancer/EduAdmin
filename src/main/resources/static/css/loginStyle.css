@@ -59,6 +59,23 @@ button {
     font-size: 15px;
     background-image: linear-gradient(to right, #30cfd0,#316ba3, #330867);
 }
+.buttonBox{
+    margin-left: 80%;
+    width: 20%;
+}
+.jumpUser{
+    margin-right: 5px;
+    margin-top: 50px;
+    width: 40%;
+    height: 30px;
+    border-radius: 10px;
+    border: 0;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    font-size: 15px;
+    background-image: linear-gradient(to right, #330867,#330867, #330867);
+}
 
 #sign_up {
     margin-top: 45%;
